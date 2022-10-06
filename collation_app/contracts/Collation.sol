@@ -15,11 +15,15 @@ contract CollationContract {
     }
     mapping(uint256 => Candidate) public candidates;
     uint256 public candidatesCount;
-    event addCandidate(uint256 id, string name, uint256 voteCount);
+    event addedCandidate(uint256 id, string name, uint256 voteCount);
 
-    function addCandidate(string memory _name, uint256 memeory _voteCount) public {
+    function addCandidate(string memory _name, uint256 _voteCount) public {
         candidatesCount++;
-        candidates[candidatesCount] = Candidate(candidatesCount, _name, _voteCount);
-        emit addCandidate(candidatesCount, _name, _voteCount);
+        candidates[candidatesCount] = Candidate(
+            candidatesCount,
+            _name,
+            _voteCount
+        );
+        emit addedCandidate(candidatesCount, _name, _voteCount);
     }
 }
