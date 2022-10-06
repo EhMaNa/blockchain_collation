@@ -17,8 +17,9 @@ contract CollationContract {
     uint256 public candidatesCount;
     event addCandidate(uint256 id, string name, uint256 voteCount);
 
-    function addCandidate(string memory _name, uint256 memeory _voteCount) private {
+    function addCandidate(string memory _name, uint256 memeory _voteCount) public {
         candidatesCount++;
-        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0);
+        candidates[candidatesCount] = Candidate(candidatesCount, _name, _voteCount);
+        emit addCandidate(candidatesCount, _name, _voteCount);
     }
 }
