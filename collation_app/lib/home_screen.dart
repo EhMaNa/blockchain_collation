@@ -1,8 +1,9 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:collation_app/candidate_services.dart';
 import 'package:provider/provider.dart';
+import 'package:collation_app/mini_database.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -41,17 +42,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   return ListTile(
                     title: Text(candidateService.candidates[index].name),
-                    subtitle:
-                        Text(candidateService.candidates[index].voteCount),
-                    trailing: IconButton(
-                      icon: const Icon(
-                        Icons.delete,
-                        color: Colors.red,
-                      ),
-                      onPressed: () {
-                        //notesServices.deleteNote(notesServices.notes[index].id);
-                      },
-                    ),
+                    subtitle: SizedBox(
+                        height: 20,
+                        child:
+                            Text(candidateService.candidates[index].voteCount)),
                   );
                 },
               ),
@@ -63,20 +57,21 @@ class _HomeScreenState extends State<HomeScreen> {
             context: context,
             builder: (context) {
               return AlertDialog(
-                title: const Text('New Note'),
+                title: const Text('Add Candidate'),
                 content: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     TextField(
                       controller: titleController,
                       decoration: const InputDecoration(
-                        hintText: 'Enter title',
+                        hintText: 'Enter Name',
                       ),
                     ),
                     TextField(
+                      keyboardType: TextInputType.phone,
                       controller: descriptionController,
                       decoration: const InputDecoration(
-                        hintText: 'Enter description',
+                        hintText: 'Enter Vote Count',
                       ),
                     ),
                   ],
@@ -88,9 +83,24 @@ class _HomeScreenState extends State<HomeScreen> {
                         titleController.text,
                         descriptionController.text,
                       );
+                      data.add({
+                        'name': titleController.text,
+                        'vote': descriptionController.text
+                      });
+                      print(data);
+                      descriptionController.clear();
+                      titleController.clear();
                       Navigator.pop(context);
                     },
                     child: const Text('Add'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      //descriptionController.clear();
+                      //titleController.clear();
+                      Navigator.pop(context);
+                    },
+                    child: const Text('Cancel'),
                   ),
                 ],
               );
