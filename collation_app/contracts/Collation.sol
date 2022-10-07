@@ -11,13 +11,15 @@ contract CollationContract {
     struct Candidate {
         uint256 id;
         string name;
-        uint256 voteCount;
+        string voteCount;
     }
     mapping(uint256 => Candidate) public candidates;
     uint256 public candidatesCount;
-    event addedCandidate(uint256 id, string name, uint256 voteCount);
+    event addedCandidate(uint256 id, string name, string voteCount);
 
-    function addCandidate(string memory _name, uint256 _voteCount) public {
+    function addCandidate(string memory _name, string memory _voteCount)
+        public
+    {
         candidatesCount++;
         candidates[candidatesCount] = Candidate(
             candidatesCount,
