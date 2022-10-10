@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
 
+import 'package:collation_app/show_collation.dart';
 import 'package:flutter/material.dart';
 import 'package:collation_app/candidate_services.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +31,56 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Add Candidates'),
+        actions: [
+          PopupMenuButton(onSelected: (value) {
+            switch (value) {
+              case "Create":
+                {
+                  if (data.isNotEmpty) {
+                    collate.clear();
+                    print('after clear: $collate');
+                    collate.addAll(data);
+                    print('after addAll: $collate');
+                    setState(() {
+                      candidateService.candidates.clear();
+                      //data.clear();
+                    });
+                    realColl.insertAll(0, [collate]);
+                    print('after InsertAll: $realColl');
+                    data.clear();
+                  } else {
+                    showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            content: Text('No entry to collate'),
+                          );
+                        });
+                  }
+                }
+                break;
+              case "Show":
+                {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Show()));
+                  //print(coll);
+                  //print('Show: $collate');
+                  // print('se: $realColl');
+                }
+            }
+          }, itemBuilder: (buildContext) {
+            return [
+              PopupMenuItem(
+                value: 'Create',
+                child: Text('Create Collations'),
+              ),
+              PopupMenuItem(
+                value: 'Show',
+                child: Text('Show Collations'),
+              )
+            ];
+          })
+        ],
       ),
       body: candidateService.isLoading
           ? const Center(
@@ -96,8 +147,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      //descriptionController.clear();
-                      //titleController.clear();
+                      descriptionController.clear();
+                      titleController.clear();
                       Navigator.pop(context);
                     },
                     child: const Text('Cancel'),
