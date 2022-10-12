@@ -33,6 +33,7 @@ dependencies:
   provider: ^6.0.3
   http: ^0.13.4
   web_socket_channel: ^2.2.0
+  dio: ^4.0.6
   web3dart: 
 
 dev_dependencies:
