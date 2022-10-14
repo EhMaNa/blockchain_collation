@@ -1,5 +1,7 @@
+import 'package:collation_app/screens/authorize.dart';
 import 'package:flutter/material.dart';
 import 'package:collation_app/home_screen.dart';
+import 'package:collation_app/screens/level.dart';
 import 'package:collation_app/candidate_services.dart';
 import 'package:provider/provider.dart';
 
@@ -22,7 +24,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      home: const HomeScreen(),
+      initialRoute: "/",
+      routes: {
+        "/": (context) => Level(),
+        "/login": (context) => Authorize(),
+        "/home": (context) => HomeScreen(),
+      },
     );
   }
 }
