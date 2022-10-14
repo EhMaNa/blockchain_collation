@@ -1,3 +1,5 @@
+import 'package:collation_app/models/temp.dart';
+import 'package:collation_app/screens/add_candidate.dart';
 import 'package:collation_app/screens/authorize.dart';
 import 'package:flutter/material.dart';
 import 'package:collation_app/home_screen.dart';
@@ -7,11 +9,18 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-    ChangeNotifierProvider(
+      /*ChangeNotifierProvider(
       create: (context) => CandidateServices(),
       child: const MyApp(),
-    ),
-  );
+    ),*/
+      MultiProvider(
+    providers: [
+      ChangeNotifierProvider<CandidateServices>(
+          create: (context) => CandidateServices()),
+      ChangeNotifierProvider<Temporary>(create: (context) => Temporary()),
+    ],
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -26,9 +35,10 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: "/",
       routes: {
-        "/": (context) => Level(),
-        "/login": (context) => Authorize(),
-        "/home": (context) => HomeScreen(),
+        "/": (context) => const Level(),
+        "/login": (context) => const Authorize(),
+        "/home": (context) => const HomeScreen(),
+        "/add": (context) => const AddCandidate(),
       },
     );
   }
