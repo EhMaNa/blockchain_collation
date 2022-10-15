@@ -10,13 +10,13 @@ class Authorize extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _emailController = TextEditingController();
-    TextEditingController _passwordcontroller = TextEditingController();
+    TextEditingController emailController = TextEditingController();
+    TextEditingController passwordController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Log In'),
       ),
-      body: level == 'Officer'
+      body: level == 'Party'
           ? Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
@@ -39,7 +39,7 @@ class Authorize extends StatelessWidget {
                           borderSide: BorderSide(color: Colors.blue),
                         ),
                       ),
-                      controller: _emailController,
+                      controller: emailController,
                       validator: (value) =>
                           value!.isEmpty ? 'Please enter your name' : null,
                       onChanged: (value) {
@@ -66,7 +66,7 @@ class Authorize extends StatelessWidget {
                         ),
                       ),
                       obscureText: true,
-                      controller: _passwordcontroller,
+                      controller: passwordController,
                       validator: (value) => value!.length < 6
                           ? 'Password should contain more than 6 Characters'
                           : null,
@@ -128,7 +128,7 @@ class Authorize extends StatelessWidget {
                           borderSide: BorderSide(color: Colors.blue),
                         ),
                       ),
-                      controller: _emailController,
+                      controller: emailController,
                       validator: (value) =>
                           value!.isEmpty ? 'Please enter your name' : null,
                       onChanged: (value) {
@@ -156,6 +156,7 @@ class Authorize extends StatelessWidget {
 
                           _formKey.currentState!.save();
                         }*/
+                          Navigator.pushNamed(context, '/add');
                         },
                         child: Container(
                             width: 200,
