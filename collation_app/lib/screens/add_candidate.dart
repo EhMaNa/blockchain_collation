@@ -37,7 +37,9 @@ class _AddCandidateState extends State<AddCandidate> {
             switch (value) {
               case "Create":
                 {
-                  if (data.isNotEmpty) {
+                  if (temp.routines.isNotEmpty) {
+                    print(temp.routines);
+                    temp.submit('presidential', temp.routines);
                   } else {
                     showDialog(
                         context: context,
@@ -87,9 +89,6 @@ class _AddCandidateState extends State<AddCandidate> {
                       );
                     },
                   );
-                  //print(coll);
-                  //print('Show: $collate');
-                  // print('se: $realColl');
                 }
             }
           }, itemBuilder: (buildContext) {
