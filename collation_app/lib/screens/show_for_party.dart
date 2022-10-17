@@ -1,5 +1,9 @@
+// ignore_for_file: prefer_const_constructors, avoid_print
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:collation_app/global.dart';
+
+// Show For Presidential
 
 class ShowParty extends StatefulWidget {
   const ShowParty({Key? key}) : super(key: key);
@@ -22,7 +26,8 @@ class _ShowPartyState extends State<ShowParty> {
   List use = [];
   dynamic getCollation() async {
     try {
-      var response = await Dio().get('http://localhost:3000/collation');
+      var response =
+          await Dio().get('http://localhost:3000/collation/presidential/$ID');
       List list = response.data.toList();
       List<Widget> wid = [];
       for (int i = 0; i < list.length; i++) {
@@ -50,7 +55,31 @@ class _ShowPartyState extends State<ShowParty> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Collations'),
+        title: const Text('Presidential'),
+        actions: [
+          PopupMenuButton(onSelected: (value) {
+            switch (value) {
+              case "Parl":
+                {
+                  //Navigator.push(context, MaterialPageRoute(builder: (context) => NewGroup()));
+                }
+                break;
+              case "Approve":
+                {}
+            }
+          }, itemBuilder: (buildContext) {
+            return [
+              PopupMenuItem(
+                value: 'Parl',
+                child: Text('View Parlimentary'),
+              ),
+              PopupMenuItem(
+                value: 'Approve',
+                child: Text('Approve'),
+              )
+            ];
+          })
+        ],
       ),
       body: ListView.builder(
         itemCount: use.length,
