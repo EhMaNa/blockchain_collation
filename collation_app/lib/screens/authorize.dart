@@ -10,7 +10,6 @@ class Authorize extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
     TextEditingController keyController = TextEditingController();
     TextEditingController IDController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
@@ -31,7 +30,7 @@ class Authorize extends StatelessWidget {
                       textCapitalization: TextCapitalization.words,
                       maxLength: 20,
                       decoration: InputDecoration(
-                        hintText: 'Name',
+                        hintText: 'Name of Constituency',
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                             borderSide: BorderSide(color: Colors.black)),
@@ -42,11 +41,6 @@ class Authorize extends StatelessWidget {
                         ),
                       ),
                       controller: IDController,
-                      validator: (value) =>
-                          value!.isEmpty ? 'Please enter your name' : null,
-                      onChanged: (value) {
-                        String name = value;
-                      },
                     ),
                   ),
                   SizedBox(
@@ -69,10 +63,6 @@ class Authorize extends StatelessWidget {
                       ),
                       obscureText: true,
                       controller: passwordController,
-                      validator: (value) => value!.length < 6
-                          ? 'Password should contain more than 6 Characters'
-                          : null,
-                      onChanged: (value) {},
                     ),
                   ),
                   SizedBox(
@@ -90,14 +80,12 @@ class Authorize extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10))),
                         onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            if ((passwordController.text == password1 &&
-                                    IDController.text == ID1) ||
-                                (passwordController.text == password2 &&
-                                    IDController.text == ID2)) {
-                              Navigator.pushNamed(context, '/showP');
-                            }
-                            _formKey.currentState!.save();
+                          if ((passwordController.text == password1 &&
+                                  IDController.text == ID1) ||
+                              (passwordController.text == password2 &&
+                                  IDController.text == ID2)) {
+                            ID = IDController.text;
+                            Navigator.popAndPushNamed(context, '/showP');
                           }
                         },
                         child: Container(
@@ -135,11 +123,6 @@ class Authorize extends StatelessWidget {
                         ),
                       ),
                       controller: keyController,
-                      validator: (value) =>
-                          value!.isEmpty ? 'Please enter your key' : null,
-                      onChanged: (value) {
-                        String name = value;
-                      },
                     ),
                   ),
                   SizedBox(
