@@ -10,7 +10,9 @@ class Authorize extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController emailController = TextEditingController();
+    final _formKey = GlobalKey<FormState>();
+    TextEditingController keyController = TextEditingController();
+    TextEditingController IDController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
@@ -39,7 +41,7 @@ class Authorize extends StatelessWidget {
                           borderSide: BorderSide(color: Colors.blue),
                         ),
                       ),
-                      controller: emailController,
+                      controller: IDController,
                       validator: (value) =>
                           value!.isEmpty ? 'Please enter your name' : null,
                       onChanged: (value) {
@@ -88,11 +90,15 @@ class Authorize extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10))),
                         onPressed: () {
-                          /*if (_formKey.currentState!.validate()) {
-                           _validateAndSignUp();
-
-                          _formKey.currentState!.save();
-                        }*/
+                          if (_formKey.currentState!.validate()) {
+                            if ((passwordController.text == password1 &&
+                                    IDController.text == ID1) ||
+                                (passwordController.text == password2 &&
+                                    IDController.text == ID2)) {
+                              Navigator.pushNamed(context, '/showP');
+                            }
+                            _formKey.currentState!.save();
+                          }
                         },
                         child: Container(
                             width: 200,
@@ -128,9 +134,9 @@ class Authorize extends StatelessWidget {
                           borderSide: BorderSide(color: Colors.blue),
                         ),
                       ),
-                      controller: emailController,
+                      controller: keyController,
                       validator: (value) =>
-                          value!.isEmpty ? 'Please enter your name' : null,
+                          value!.isEmpty ? 'Please enter your key' : null,
                       onChanged: (value) {
                         String name = value;
                       },
