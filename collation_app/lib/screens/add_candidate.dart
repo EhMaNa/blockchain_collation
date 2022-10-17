@@ -2,9 +2,7 @@
 import 'package:collation_app/models/temp.dart';
 import 'package:collation_app/show_collation.dart';
 import 'package:flutter/material.dart';
-import 'package:collation_app/candidate_services.dart';
 import 'package:provider/provider.dart';
-import 'package:collation_app/mini_database.dart';
 
 class AddCandidate extends StatefulWidget {
   const AddCandidate({Key? key}) : super(key: key);
@@ -38,8 +36,55 @@ class _AddCandidateState extends State<AddCandidate> {
               case "Create":
                 {
                   if (temp.routines.isNotEmpty) {
-                    print(temp.routines);
-                    temp.submit('presidential', temp.routines);
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Text('Choose an Option'),
+                          content: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              ElevatedButton(
+                                onPressed: () {
+                                  temp.submit('parlimentary', temp.routines);
+                                  Future.delayed(const Duration(seconds: 3),
+                                      () {
+                                    setState(() {
+                                      temp.routines.clear();
+                                    });
+                                  });
+                                  Navigator.pop(context);
+                                },
+                                child: Text('Parlimentary'),
+                              ),
+                              SizedBox(
+                                height: 40,
+                              ),
+                              ElevatedButton(
+                                  onPressed: () async {
+                                    temp.submit('presidential', temp.routines);
+                                    Future.delayed(const Duration(seconds: 3),
+                                        () {
+                                      setState(() {
+                                        temp.routines.clear();
+                                      });
+                                    });
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text('Presidential')),
+                            ],
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Cancel'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   } else {
                     showDialog(
                         context: context,
@@ -70,10 +115,7 @@ class _AddCandidateState extends State<AddCandidate> {
                             ),
                             ElevatedButton(
                                 onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Show()));
+                                  Navigator.popAndPushNamed(context, '/show');
                                 },
                                 child: Text('Presidential')),
                           ],
