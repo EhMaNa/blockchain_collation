@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:dio/dio.dart';
+import 'package:collation_app/global.dart';
 /*
 import 'dart:convert';*/
 
@@ -9,6 +10,7 @@ class Temporary extends ChangeNotifier {
   List routines = [];
   List title = [];
   List collect = [];
+  int statCode = 200;
 
   void addCandidate(Map candidate) {
     routines.add(candidate);
@@ -21,12 +23,12 @@ class Temporary extends ChangeNotifier {
   }
 
   Future<void> submit(String type, List list) async {
-    var response = await Dio().post('http://localhost:3000/collation/${type}',
-        data: {'candidates': list},
+    var response = await Dio().post('http://localhost:3000/collation/$type',
+        data: {'candidates': list, 'ID': ID},
         options: Options(headers: {
           HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
         }));
-
+    statCode = 200;
     /*await post(url, body: json.encode({'Name': one,"text": list}), headers: {'Content-type': 'application/json'});
      var response = await get(url);
      List data = jsonDecode(response.body);
