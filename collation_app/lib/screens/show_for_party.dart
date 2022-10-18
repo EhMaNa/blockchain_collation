@@ -1,4 +1,5 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:collation_app/global.dart';
@@ -27,7 +28,7 @@ class _ShowPartyState extends State<ShowParty> {
   dynamic getCollation() async {
     try {
       var response =
-          await Dio().get('http://localhost:3000/collation/presidential/$ID');
+          await Dio().get('http://localhost:3000/collation/parlimentary/$ID');
       List list = response.data.toList();
       List<Widget> wid = [];
       for (int i = 0; i < list.length; i++) {
@@ -55,28 +56,32 @@ class _ShowPartyState extends State<ShowParty> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Presidential'),
+        automaticallyImplyLeading: false,
+        title: const Text('Parlimentary'),
         actions: [
-          PopupMenuButton(onSelected: (value) {
+          PopupMenuButton(onSelected: (value) async {
             switch (value) {
-              case "Parl":
+              case "Pres":
                 {
                   //Navigator.push(context, MaterialPageRoute(builder: (context) => NewGroup()));
                 }
                 break;
-              case "Approve":
-                {}
+              case "Out":
+                {
+                  //Navigator.push(context, MaterialPageRoute(builder: (context) => NewGroup()));
+                }
+                break;
             }
           }, itemBuilder: (buildContext) {
             return [
               PopupMenuItem(
-                value: 'Parl',
-                child: Text('View Parlimentary'),
+                value: 'Pres',
+                child: Text('View Presidential'),
               ),
               PopupMenuItem(
-                value: 'Approve',
-                child: Text('Approve'),
-              )
+                value: 'out',
+                child: Text('Log Out'),
+              ),
             ];
           })
         ],
@@ -88,6 +93,25 @@ class _ShowPartyState extends State<ShowParty> {
             child: use[index],
           );
         },
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () async {
+          try {
+            var response = await Dio().put(
+                'http://localhost:3000/collation/parlimentary/$ID',
+                options: Options(headers: {
+                  HttpHeaders.contentTypeHeader:
+                      "application/x-www-form-urlencoded"
+                }));
+          } catch (e) {
+            //print(e);
+            print('didnt send');
+          }
+        },
+        label: Text(
+          'Approve',
+          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+        ),
       ),
     );
   }
