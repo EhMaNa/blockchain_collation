@@ -1,9 +1,9 @@
 // ignore_for_file: prefer_const_constructors
-import 'dart:convert';
-
+import 'package:collation_app/global.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:collation_app/mini_database.dart';
+
+// Show For Presidential
 
 class Show extends StatefulWidget {
   const Show({Key? key}) : super(key: key);
@@ -29,7 +29,8 @@ class _ShowState extends State<Show> {
   List use = [];
   dynamic getCollation() async {
     try {
-      var response = await Dio().get('http://localhost:3000/collation');
+      var response =
+          await Dio().get('http://localhost:3000/collation/presidential/$ID');
       List list = response.data.toList();
       //print(response.data.runtimeType);
       //print(list.runtimeType);
@@ -44,6 +45,8 @@ class _ShowState extends State<Show> {
             trailing: Text(list[i]['candidates'][j]['voteCount']),
           ));
         }
+        var app = list[i]['Approved'];
+        wid.add(Text('Approved: $app'));
         wid.add(const Divider(thickness: 7.0));
       }
       //print(wid.runtimeType);
@@ -52,7 +55,7 @@ class _ShowState extends State<Show> {
 
       //return list;
     } catch (e) {
-      print(e);
+      print('not workingg');
     }
   }
 
@@ -60,7 +63,7 @@ class _ShowState extends State<Show> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Collations'),
+        title: const Text('Presidential'),
       ),
       body: ListView.builder(
         itemCount: use.length,
@@ -74,6 +77,7 @@ class _ShowState extends State<Show> {
           );*/
         },
       ),
+      //floatingActionButton: FloatingActionButton.extended(label: , onPressed: (){},),
     );
   }
 }
