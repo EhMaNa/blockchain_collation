@@ -1,6 +1,7 @@
 import 'package:collation_app/models/temp.dart';
 import 'package:collation_app/screens/add_candidate.dart';
 import 'package:collation_app/screens/authorize.dart';
+import 'package:collation_app/screens/show_for_party.dart';
 import 'package:collation_app/show_collation.dart';
 import 'package:flutter/material.dart';
 import 'package:collation_app/home_screen.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
         "/home": (context) => const HomeScreen(),
         "/add": (context) => const AddCandidate(),
         "/show": (context) => const Show(),
+        "/showP": (context) => const ShowParty(),
       },
     );
   }
