@@ -27,8 +27,8 @@ class _ShowPartyState extends State<ShowParty> {
   List use = [];
   dynamic getCollation() async {
     try {
-      var response =
-          await Dio().get('http://localhost:3000/collation/parlimentary/$ID');
+      var response = await Dio()
+          .get('http://localhost:3000/collation/parlimentary?ID=$ID');
       List list = response.data.toList();
       List<Widget> wid = [];
       for (int i = 0; i < list.length; i++) {
