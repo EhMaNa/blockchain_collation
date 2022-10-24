@@ -86,6 +86,18 @@ class Authorize extends StatelessWidget {
                                   IDController.text == ID2)) {
                             ID = IDController.text;
                             Navigator.popAndPushNamed(context, '/showP');
+                          } else {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text('Authentication Failed'),
+                                    content: Text(
+                                      'Incorrect Password Or Name ',
+                                      style: TextStyle(fontSize: 20),
+                                    ),
+                                  );
+                                });
                           }
                         },
                         child: Container(
@@ -112,7 +124,7 @@ class Authorize extends StatelessWidget {
                       textCapitalization: TextCapitalization.words,
                       maxLength: 20,
                       decoration: InputDecoration(
-                        hintText: 'Key',
+                        hintText: 'Name of Constituency',
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                             borderSide: BorderSide(color: Colors.black)),
@@ -122,7 +134,29 @@ class Authorize extends StatelessWidget {
                           borderSide: BorderSide(color: Colors.blue),
                         ),
                       ),
-                      controller: keyController,
+                      controller: IDController,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    // ignore: sort_child_properties_last
+                    child: TextFormField(
+                      decoration: InputDecoration(
+                        hintText: 'Password',
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(color: Colors.black)),
+                        focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: Colors.red)),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.blue),
+                        ),
+                      ),
+                      obscureText: true,
+                      controller: passwordController,
                     ),
                   ),
                   SizedBox(
@@ -140,12 +174,25 @@ class Authorize extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10))),
                         onPressed: () {
-                          /*if (_formKey.currentState!.validate()) {
-                           _validateAndSignUp();
-
-                          _formKey.currentState!.save();
-                        }*/
-                          Navigator.pushNamed(context, '/add');
+                          if ((passwordController.text == password3 &&
+                                  IDController.text == ID1) ||
+                              (passwordController.text == password4 &&
+                                  IDController.text == ID2)) {
+                            ID = IDController.text;
+                            Navigator.popAndPushNamed(context, '/add');
+                          } else {
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return AlertDialog(
+                                    title: Text('Authentication Failed'),
+                                    content: Text(
+                                      'Incorrect Password Or Name ',
+                                      style: TextStyle(fontSize: 30),
+                                    ),
+                                  );
+                                });
+                          }
                         },
                         child: Container(
                             width: 200,
