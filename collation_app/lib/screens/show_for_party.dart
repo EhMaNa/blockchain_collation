@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, avoid_print
+// ignore_for_file: prefer_const_constructors, avoid_print, use_key_in_widget_constructors
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +7,9 @@ import 'package:collation_app/global.dart';
 // Show For Presidential
 
 class ShowParty extends StatefulWidget {
-  const ShowParty({Key? key}) : super(key: key);
+  final String category;
+  final bool add;
+  const ShowParty({required this.category, required this.add});
 
   @override
   State<ShowParty> createState() => _ShowPartyState();
@@ -17,7 +19,7 @@ class _ShowPartyState extends State<ShowParty> {
   @override
   void initState() {
     super.initState();
-    getCollation().then((value) {
+    getCollation(widget.category, widget.add).then((value) {
       setState(() {
         if (value != null) value.forEach((item) => use.add(item));
       });
@@ -25,7 +27,7 @@ class _ShowPartyState extends State<ShowParty> {
   }
 
   List use = [];
-  dynamic getCollation() async {
+  /*dynamic getCollation() async {
     try {
       var response = await Dio()
           .get('http://localhost:3000/collation/parlimentary?ID=$ID');
@@ -50,7 +52,7 @@ class _ShowPartyState extends State<ShowParty> {
     } catch (e) {
       print('not workingg');
     }
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
