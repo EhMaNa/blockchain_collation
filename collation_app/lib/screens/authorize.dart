@@ -2,6 +2,7 @@
 
 import 'package:collation_app/global.dart';
 import 'package:flutter/material.dart';
+import 'package:collation_app/screens/show_for_party.dart';
 
 // Some form of Login Screen
 
@@ -85,7 +86,13 @@ class Authorize extends StatelessWidget {
                               (passwordController.text == password2 &&
                                   IDController.text == ID2)) {
                             ID = IDController.text;
-                            Navigator.popAndPushNamed(context, '/showP');
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ShowParl(
+                                          category: 'parlimentary',
+                                          add: false,
+                                        )));
                           } else {
                             showDialog(
                                 context: context,
@@ -180,6 +187,17 @@ class Authorize extends StatelessWidget {
                                   IDController.text == ID2)) {
                             ID = IDController.text;
                             Navigator.popAndPushNamed(context, '/add');
+                          }
+                          if (passwordController.text == password5 &&
+                              IDController.text == ID3) {
+                            ID = IDController.text;
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ShowParl(
+                                          category: 'parlimentary',
+                                          add: true,
+                                        )));
                           } else {
                             showDialog(
                                 context: context,
