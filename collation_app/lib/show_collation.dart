@@ -16,7 +16,7 @@ class _ShowState extends State<Show> {
   @override
   void initState() {
     super.initState();
-    getCollation().then((value) {
+    getCollation('presidential').then((value) {
       setState(() {
         if (value != null) value.forEach((item) => use.add(item));
       });
@@ -27,37 +27,6 @@ class _ShowState extends State<Show> {
   }
 
   List use = [];
-  dynamic getCollation() async {
-    try {
-      var response =
-          await Dio().get('http://localhost:3000/collation/presidential/$ID');
-      List list = response.data.toList();
-      //print(response.data.runtimeType);
-      //print(list.runtimeType);
-      //print(list);
-      List<Widget> wid = [];
-      for (int i = 0; i < list.length; i++) {
-        for (int j = 0; j < list[i]['candidates'].length; j++) {
-          //print(param[j]['candidates'].length);
-          //print(param[i]['candidates'][j]);
-          wid.add(ListTile(
-            title: Text(list[i]['candidates'][j]['name']),
-            trailing: Text(list[i]['candidates'][j]['voteCount']),
-          ));
-        }
-        var app = list[i]['Approved'];
-        wid.add(Text('Approved: $app'));
-        wid.add(const Divider(thickness: 7.0));
-      }
-      //print(wid.runtimeType);
-      //print(wid);
-      return wid.toList();
-
-      //return list;
-    } catch (e) {
-      print('not workingg');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
