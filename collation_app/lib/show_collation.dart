@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:collation_app/global.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 // Show For Presidential
@@ -16,7 +15,7 @@ class _ShowState extends State<Show> {
   @override
   void initState() {
     super.initState();
-    getCollation('presidential').then((value) {
+    getCollation('presidential', true).then((value) {
       setState(() {
         if (value != null) value.forEach((item) => use.add(item));
       });
