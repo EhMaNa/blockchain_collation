@@ -188,7 +188,7 @@ class Authorize extends StatelessWidget {
                                     title: Text('Authentication Failed'),
                                     content: Text(
                                       'Incorrect Password Or Name ',
-                                      style: TextStyle(fontSize: 30),
+                                      style: TextStyle(fontSize: 20),
                                     ),
                                   );
                                 });
