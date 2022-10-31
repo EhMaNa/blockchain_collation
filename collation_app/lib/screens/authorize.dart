@@ -86,7 +86,7 @@ class Authorize extends StatelessWidget {
                               (passwordController.text == password2 &&
                                   IDController.text == ID2)) {
                             ID = IDController.text;
-                            Navigator.push(
+                            Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => ShowParl(
@@ -187,11 +187,10 @@ class Authorize extends StatelessWidget {
                                   IDController.text == ID2)) {
                             ID = IDController.text;
                             Navigator.popAndPushNamed(context, '/add');
-                          }
-                          if (passwordController.text == password5 &&
+                          } else if (passwordController.text == password5 &&
                               IDController.text == ID3) {
                             ID = IDController.text;
-                            Navigator.push(
+                            Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => ShowParl(
