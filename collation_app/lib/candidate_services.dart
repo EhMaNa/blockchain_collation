@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'dart:io';
+//import 'dart:io';
 import 'package:flutter/services.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:flutter/material.dart';
@@ -9,14 +9,15 @@ import 'package:web_socket_channel/io.dart';
 
 class CandidateServices extends ChangeNotifier {
   List<Candidate> candidates = [];
-  final String _rpcUrl =
-      Platform.isAndroid ? 'http://10.0.2.2:7545' : 'http://127.0.0.1:7545';
-  final String _wsUrl =
-      Platform.isAndroid ? 'http://10.0.2.2:7545' : 'ws://127.0.0.1:7545';
+  final String _rpcUrl = 'http://127.0.0.1:7545';
+  // Platform.isAndroid ? 'http://10.0.2.2:7545' : 'http://127.0.0.1:7545';
+  final String _wsUrl = 'http://127.0.0.1:7545';
+  // Platform.isAndroid ? 'http://10.0.2.2:7545' : 'ws://127.0.0.1:7545';
+  bool isLoading = true;
 
   late Web3Client _web3cient;
   final String _privatekey =
-      '61597377996460a55e16f81277b672f0213b6d448764d4cc49187c731e40f353';
+      '45b96496fde5f34545622d7cae469efda645eabc7c4320bb8252be6570c78e5d';
 
   CandidateServices() {
     init();
@@ -61,10 +62,10 @@ class CandidateServices extends ChangeNotifier {
     _addCandidate = _deployedContract.function('addCandidate');
     _candidates = _deployedContract.function('candidates');
     _candidatesCount = _deployedContract.function('candidatesCount');
-    await fetchNotes();
+    await fetchCandidate();
   }
 
-  Future<void> fetchNotes() async {
+  Future<void> fetchCandidate() async {
     List totalTaskList = await _web3cient.call(
       contract: _deployedContract,
       function: _candidatesCount,
@@ -87,8 +88,21 @@ class CandidateServices extends ChangeNotifier {
         );
       }
     }
-    //isLoading = false;
+    isLoading = false;
 
     notifyListeners();
+  }
+
+  Future<void> addCandidate(String name, String voteCount) async {
+    await _web3cient.sendTransaction(
+      _creds,
+      Transaction.callContract(
+        contract: _deployedContract,
+        function: _addCandidate,
+        parameters: [name, voteCount],
+      ),
+    );
+    isLoading = true;
+    fetchCandidate();
   }
 }
