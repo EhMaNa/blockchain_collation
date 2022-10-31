@@ -6,16 +6,16 @@ import 'package:collation_app/global.dart';
 
 // Show For Presidential
 
-class ShowParty extends StatefulWidget {
+class ShowParl extends StatefulWidget {
   final String category;
   final bool add;
-  const ShowParty({required this.category, required this.add});
+  const ShowParl({required this.category, required this.add});
 
   @override
-  State<ShowParty> createState() => _ShowPartyState();
+  State<ShowParl> createState() => _ShowParlState();
 }
 
-class _ShowPartyState extends State<ShowParty> {
+class _ShowParlState extends State<ShowParl> {
   @override
   void initState() {
     super.initState();
@@ -70,7 +70,7 @@ class _ShowPartyState extends State<ShowParty> {
                 break;
               case "Out":
                 {
-                  //Navigator.push(context, MaterialPageRoute(builder: (context) => NewGroup()));
+                  Navigator.pop(context);
                 }
                 break;
             }
@@ -81,7 +81,7 @@ class _ShowPartyState extends State<ShowParty> {
                 child: Text('View Presidential'),
               ),
               PopupMenuItem(
-                value: 'out',
+                value: 'Out',
                 child: Text('Log Out'),
               ),
             ];
@@ -96,25 +96,27 @@ class _ShowPartyState extends State<ShowParty> {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () async {
-          try {
-            var response = await Dio().put(
-                'http://localhost:3000/collation/parlimentary/$ID',
-                options: Options(headers: {
-                  HttpHeaders.contentTypeHeader:
-                      "application/x-www-form-urlencoded"
-                }));
-          } catch (e) {
-            //print(e);
-            print('didnt send');
-          }
-        },
-        label: Text(
-          'Approve',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-        ),
-      ),
+      floatingActionButton: widget.add
+          ? null
+          : FloatingActionButton.extended(
+              onPressed: () async {
+                try {
+                  var response = await Dio().put(
+                      'http://localhost:3000/collation/${widget.category}?ID=$ID',
+                      options: Options(headers: {
+                        HttpHeaders.contentTypeHeader:
+                            "application/x-www-form-urlencoded"
+                      }));
+                } catch (e) {
+                  //print(e);
+                  print('didnt send');
+                }
+              },
+              label: Text(
+                'Approve',
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
+              ),
+            ),
     );
   }
 }
