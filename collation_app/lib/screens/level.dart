@@ -27,7 +27,7 @@ class Level extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 elevation: 5,
               ),
-              child: Text('Officer'),
+              child: Text('Constituency'),
             ),
             SizedBox(
               height: 40,
@@ -40,7 +40,7 @@ class Level extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                 elevation: 5,
               ),
-              child: Text('Party'),
+              child: Text('                '),
             ),
           ],
         ),
