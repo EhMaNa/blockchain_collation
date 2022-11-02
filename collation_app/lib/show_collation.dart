@@ -32,6 +32,24 @@ class _ShowState extends State<Show> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Presidential'),
+        actions: [
+          PopupMenuButton(onSelected: (value) async {
+            switch (value) {
+              case "Block":
+                {
+                  //Navigator.push(context, MaterialPageRoute(builder: (context) => NewGroup()));
+                }
+                break;
+            }
+          }, itemBuilder: (buildContext) {
+            return [
+              PopupMenuItem(
+                value: 'Block',
+                child: Text('Transact'),
+              ),
+            ];
+          })
+        ],
       ),
       body: ListView.builder(
         itemCount: use.length,
