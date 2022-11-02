@@ -29,6 +29,7 @@ class _AddCandidateState extends State<AddCandidate> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Add Candidates'),
         actions: [
           PopupMenuButton(onSelected: (value) {
