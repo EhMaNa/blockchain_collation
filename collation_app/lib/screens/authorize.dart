@@ -3,6 +3,7 @@
 import 'package:collation_app/global.dart';
 import 'package:flutter/material.dart';
 import 'package:collation_app/screens/show_for_party.dart';
+import 'package:collation_app/models/users.dart';
 
 // Some form of Login Screen
 
@@ -14,6 +15,7 @@ class Authorize extends StatelessWidget {
     TextEditingController keyController = TextEditingController();
     TextEditingController IDController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
+    User admin = User(1234, 'admin', 'admin', 'admin');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Log In'),
@@ -81,6 +83,9 @@ class Authorize extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10))),
                         onPressed: () {
+                          Map<String, String> see = admin.validateUser(
+                              IDController.text, passwordController.text);
+                          print(see);
                           if ((passwordController.text == password1 &&
                                   IDController.text == ID1) ||
                               (passwordController.text == password2 &&
