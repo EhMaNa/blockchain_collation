@@ -15,7 +15,6 @@ class Authorize extends StatelessWidget {
     TextEditingController keyController = TextEditingController();
     TextEditingController IDController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
-    User admin = User(1234, 'admin', 'admin', 'admin');
     return Scaffold(
       appBar: AppBar(
         title: const Text('Log In'),
@@ -83,21 +82,20 @@ class Authorize extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10))),
                         onPressed: () {
-                          Map<String, String> see = admin.validateUser(
+                          currentUser = validateUser(
                               IDController.text, passwordController.text);
-                          print(see);
-                          if ((passwordController.text == password1 &&
-                                  IDController.text == ID1) ||
-                              (passwordController.text == password2 &&
-                                  IDController.text == ID2)) {
-                            ID = IDController.text;
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ShowParl(
-                                          category: 'parlimentary',
-                                          add: false,
-                                        )));
+                          if (currentUser.id != 1234) {
+                            if (currentUser.level == 'pOfficer') {
+                              Navigator.popAndPushNamed(context, '/add');
+                            } else if (currentUser.level == 'Party') {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ShowParl(
+                                            category: 'parlimentary',
+                                            add: false,
+                                          )));
+                            }
                           } else {
                             showDialog(
                                 context: context,
@@ -111,6 +109,13 @@ class Authorize extends StatelessWidget {
                                   );
                                 });
                           }
+                          /*if ((passwordController.text == password1 &&
+                                  IDController.text == ID1) ||
+                              (passwordController.text == password2 &&
+                                  IDController.text == ID2)) {
+                            ID = IDController.text;
+                            
+                          } */
                         },
                         child: Container(
                             width: 200,
@@ -230,4 +235,21 @@ class Authorize extends StatelessWidget {
             ),
     );
   }
+}
+
+User validateUser(String area, String pass) {
+  List<User> users = [
+    User(1, 'Legon A', 'awesomeA', 'pOfficer'),
+    User(2, 'Legon B', 'awesomeM', 'pOfficer'),
+    User(3, 'Legon', 'awesome', 'cOfficer'),
+    User(4, 'Legon A', 'awesomeR', 'Party'),
+    User(5, 'Legon B', 'awesomeE', 'Party'),
+  ];
+  User controller = User(1234, '', '', '');
+  for (int i = 0; i < users.length; i++) {
+    if (users[i].area == area && users[i].password == pass) {
+      controller = users[i];
+    }
+  }
+  return controller;
 }
