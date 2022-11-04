@@ -1,6 +1,7 @@
-//Keep global variables and functions
+//Keep global variables and custom functions
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
+import 'package:collation_app/models/users.dart';
 
 dynamic getCollation(String category, bool add) async {
   try {
@@ -45,3 +46,4 @@ String password2 = 'awesomeE';
 String password3 = 'awesomeA';
 String password4 = 'awesomeM';
 String password5 = 'Officer';
+User currentUser = User(1234, 'admin', 'admin', 'admin');
