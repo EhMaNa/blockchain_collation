@@ -1,9 +1,9 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace
 
-import 'package:collation_app/global.dart';
+import 'package:collation_app/custom/global.dart';
 import 'package:flutter/material.dart';
 import 'package:collation_app/screens/show_for_party.dart';
-import 'package:collation_app/models/users.dart';
+import 'package:collation_app/custom/functions.dart';
 
 // Some form of Login Screen
 
@@ -12,14 +12,13 @@ class Authorize extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController keyController = TextEditingController();
-    TextEditingController IDController = TextEditingController();
+    TextEditingController idController = TextEditingController();
     TextEditingController passwordController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Log In'),
       ),
-      body: level == 'Party'
+      body: level == 'Constituency'
           ? Container(
               height: MediaQuery.of(context).size.height,
               width: MediaQuery.of(context).size.width,
@@ -42,7 +41,7 @@ class Authorize extends StatelessWidget {
                           borderSide: BorderSide(color: Colors.blue),
                         ),
                       ),
-                      controller: IDController,
+                      controller: idController,
                     ),
                   ),
                   SizedBox(
@@ -83,7 +82,7 @@ class Authorize extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10))),
                         onPressed: () {
                           currentUser = validateUser(
-                              IDController.text, passwordController.text);
+                              idController.text, passwordController.text);
                           if (currentUser.id != 1234) {
                             if (currentUser.level == 'pOfficer') {
                               Navigator.popAndPushNamed(context, '/add');
@@ -109,13 +108,6 @@ class Authorize extends StatelessWidget {
                                   );
                                 });
                           }
-                          /*if ((passwordController.text == password1 &&
-                                  IDController.text == ID1) ||
-                              (passwordController.text == password2 &&
-                                  IDController.text == ID2)) {
-                            ID = IDController.text;
-                            
-                          } */
                         },
                         child: Container(
                             width: 200,
@@ -151,7 +143,7 @@ class Authorize extends StatelessWidget {
                           borderSide: BorderSide(color: Colors.blue),
                         ),
                       ),
-                      controller: IDController,
+                      controller: idController,
                     ),
                   ),
                   SizedBox(
@@ -192,14 +184,14 @@ class Authorize extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(10))),
                         onPressed: () {
                           if ((passwordController.text == password3 &&
-                                  IDController.text == ID1) ||
+                                  idController.text == ID1) ||
                               (passwordController.text == password4 &&
-                                  IDController.text == ID2)) {
-                            ID = IDController.text;
+                                  idController.text == ID2)) {
+                            ID = idController.text;
                             Navigator.popAndPushNamed(context, '/add');
                           } else if (passwordController.text == password5 &&
-                              IDController.text == ID3) {
-                            ID = IDController.text;
+                              idController.text == ID3) {
+                            ID = idController.text;
                             Navigator.pushReplacement(
                                 context,
                                 MaterialPageRoute(
@@ -235,21 +227,4 @@ class Authorize extends StatelessWidget {
             ),
     );
   }
-}
-
-User validateUser(String area, String pass) {
-  List<User> users = [
-    User(1, 'Legon A', 'awesomeA', 'pOfficer'),
-    User(2, 'Legon B', 'awesomeM', 'pOfficer'),
-    User(3, 'Legon', 'awesome', 'cOfficer'),
-    User(4, 'Legon A', 'awesomeR', 'Party'),
-    User(5, 'Legon B', 'awesomeE', 'Party'),
-  ];
-  User controller = User(1234, '', '', '');
-  for (int i = 0; i < users.length; i++) {
-    if (users[i].area == area && users[i].password == pass) {
-      controller = users[i];
-    }
-  }
-  return controller;
 }
