@@ -2,7 +2,8 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:collation_app/global.dart';
+import 'package:collation_app/custom/global.dart';
+import 'package:collation_app/custom/functions.dart';
 
 // Show For Presidential
 
@@ -21,12 +22,12 @@ class _ShowParlState extends State<ShowParl> {
     super.initState();
     getCollation(widget.category, widget.add).then((value) {
       setState(() {
-        if (value != null) value.forEach((item) => use.add(item));
+        if (value != null) value.forEach((item) => displayList.add(item));
       });
     });
   }
 
-  List use = [];
+  List displayList = [];
   /*dynamic getCollation() async {
     try {
       var response = await Dio()
@@ -89,10 +90,10 @@ class _ShowParlState extends State<ShowParl> {
         ],
       ),
       body: ListView.builder(
-        itemCount: use.length,
+        itemCount: displayList.length,
         itemBuilder: (context, index) {
           return Container(
-            child: use[index],
+            child: displayList[index],
           );
         },
       ),
@@ -102,7 +103,7 @@ class _ShowParlState extends State<ShowParl> {
               onPressed: () async {
                 try {
                   var response = await Dio().put(
-                      'http://localhost:3000/collation/${widget.category}?ID=$ID',
+                      'http://localhost:3000/collation/${widget.category}?ID=${currentUser.area}',
                       options: Options(headers: {
                         HttpHeaders.contentTypeHeader:
                             "application/x-www-form-urlencoded"
