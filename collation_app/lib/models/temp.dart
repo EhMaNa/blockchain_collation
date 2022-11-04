@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'package:dio/dio.dart';
 import 'package:collation_app/global.dart';
