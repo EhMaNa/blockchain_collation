@@ -34,6 +34,11 @@ class _AddCandidateState extends State<AddCandidate> {
         actions: [
           PopupMenuButton(onSelected: (value) {
             switch (value) {
+              case "Out":
+                {
+                  Navigator.pop(context);
+                }
+                break;
               case "Create":
                 {
                   if (temp.routines.isNotEmpty) {
@@ -143,7 +148,11 @@ class _AddCandidateState extends State<AddCandidate> {
               PopupMenuItem(
                 value: 'Show',
                 child: Text('Show Collations'),
-              )
+              ),
+              PopupMenuItem(
+                value: 'Out',
+                child: Text('Log Out'),
+              ),
             ];
           })
         ],
