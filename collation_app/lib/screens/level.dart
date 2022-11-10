@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:collation_app/global.dart';
+import 'package:collation_app/custom/global.dart';
 import 'package:flutter/material.dart';
 
 // Choose which access level you are
@@ -21,7 +21,7 @@ class Level extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                level = 'Officer';
+                level = 'Constituency';
                 Navigator.pushNamed(context, '/login');
               },
               style: ElevatedButton.styleFrom(
@@ -34,7 +34,7 @@ class Level extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                level = 'Party';
+                level = 'Regional';
                 Navigator.pushNamed(context, '/login');
               },
               style: ElevatedButton.styleFrom(
