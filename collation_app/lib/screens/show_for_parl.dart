@@ -9,7 +9,7 @@ import 'package:collation_app/custom/functions.dart';
 
 class ShowParl extends StatefulWidget {
   final String category;
-  final bool add;
+  final String add;
   const ShowParl({required this.category, required this.add});
 
   @override
@@ -97,27 +97,31 @@ class _ShowParlState extends State<ShowParl> {
           );
         },
       ),
-      floatingActionButton: widget.add
-          ? null
-          : FloatingActionButton.extended(
+      floatingActionButton: widget.add == 'never'
+          ? FloatingActionButton.extended(
               onPressed: () async {
-                try {
-                  var response = await Dio().put(
-                      'http://localhost:3000/collation/${widget.category}?ID=${currentUser.area}',
-                      options: Options(headers: {
-                        HttpHeaders.contentTypeHeader:
-                            "application/x-www-form-urlencoded"
-                      }));
-                } catch (e) {
-                  //print(e);
-                  print('didnt send');
+                if (count == '') {
+                  print(count);
+                  try {
+                    count = 'done';
+                    var response = await Dio().put(
+                        'http://localhost:3000/collation/${widget.category}?ID=${currentUser.area}',
+                        options: Options(headers: {
+                          HttpHeaders.contentTypeHeader:
+                              "application/x-www-form-urlencoded"
+                        }));
+                  } catch (e) {
+                    //print(e);
+                    print('didnt send');
+                  }
                 }
               },
               label: Text(
                 'Approve',
                 style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
               ),
-            ),
+            )
+          : null,
     );
   }
 }
