@@ -5,10 +5,10 @@ import 'package:collation_app/custom/global.dart';
 
 // My custom functions
 
-dynamic getCollation(String category, bool add) async {
+dynamic getCollation(String category, String add) async {
   try {
     var response = await Dio().get(
-        'http://localhost:3000/collation/$category?ID=${currentUser.area}');
+        'http://localhost:3000/collation/$category?ID=${currentUser.area}&add=$add');
     List list = response.data.toList();
     List<Widget> wid = [];
     for (int i = 0; i < list.length; i++) {
@@ -18,14 +18,18 @@ dynamic getCollation(String category, bool add) async {
           trailing: Text(list[i]['candidates'][j]['voteCount']),
         ));
       }
-      if (add) {
+      if (add == 'yes') {
         var app = list[i]['Approved'];
         wid.add(Text(list[i]['ID']));
         wid.add(const SizedBox(
-          height: 8,
+          height: 12,
         ));
         wid.add(Text('Approved: $app'));
         wid.add(const Divider(thickness: 7.0));
+      } else if (add == 'no') {
+        wid.add(Text('Approved: ${list[i]['Approved']}'));
+        wid.add(const Divider(thickness: 7.0));
+        colate = list[i]['candidates'];
       } else {
         wid.add(const Divider(thickness: 7.0));
       }
