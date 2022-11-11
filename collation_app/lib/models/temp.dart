@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:dio/dio.dart';
-import 'package:collation_app/global.dart';
+import 'package:collation_app/custom/global.dart';
 
 /*
 import 'dart:convert';*/
@@ -24,7 +24,7 @@ class Temporary extends ChangeNotifier {
 
   Future<void> submit(String category, List list) async {
     var response = await Dio().post('http://localhost:3000/collation/$category',
-        data: {'candidates': list, 'ID': ID},
+        data: {'candidates': list, 'ID': currentUser.area},
         options: Options(headers: {
           HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
         }));
