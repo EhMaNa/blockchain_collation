@@ -2,7 +2,7 @@
 
 import 'package:collation_app/custom/global.dart';
 import 'package:flutter/material.dart';
-import 'package:collation_app/screens/show_for_party.dart';
+import 'package:collation_app/screens/show_for_parl.dart';
 import 'package:collation_app/custom/functions.dart';
 
 // Some form of Login Screen
@@ -92,7 +92,15 @@ class Authorize extends StatelessWidget {
                                   MaterialPageRoute(
                                       builder: (context) => ShowParl(
                                             category: 'parlimentary',
-                                            add: false,
+                                            add: 'never',
+                                          )));
+                            } else if (currentUser.level == 'cOfficer') {
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ShowParl(
+                                            category: 'parlimentary',
+                                            add: 'yes',
                                           )));
                             }
                           } else {
@@ -197,7 +205,7 @@ class Authorize extends StatelessWidget {
                                 MaterialPageRoute(
                                     builder: (context) => ShowParl(
                                           category: 'parlimentary',
-                                          add: true,
+                                          add: 'yes',
                                         )));
                           } else {
                             showDialog(
