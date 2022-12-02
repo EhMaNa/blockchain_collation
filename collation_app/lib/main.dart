@@ -3,8 +3,6 @@ import 'package:collation_app/screens/add_candidate.dart';
 import 'package:collation_app/screens/authorize.dart';
 import 'package:collation_app/show_collation.dart';
 import 'package:flutter/material.dart';
-import 'package:collation_app/home_screen.dart';
-import 'package:collation_app/screens/level.dart';
 import 'package:collation_app/candidate_services.dart';
 import 'package:provider/provider.dart';
 
@@ -34,9 +32,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
       ),
-      initialRoute: "/",
+      initialRoute: "/login",
       routes: {
-        "/": (context) => const Level(),
         "/login": (context) => const Authorize(),
         "/add": (context) => const AddCandidate(),
         "/show": (context) => const Show(),
