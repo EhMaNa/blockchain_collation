@@ -42,55 +42,10 @@ class _AddCandidateState extends State<AddCandidate> {
               case "Create":
                 {
                   if (temp.routines.isNotEmpty) {
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: const Text('Choose an Option'),
-                          content: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  temp.submit('parlimentary', temp.routines);
-                                  Future.delayed(const Duration(seconds: 3),
-                                      () {
-                                    setState(() {
-                                      temp.routines.clear();
-                                    });
-                                  });
-                                  Navigator.pop(context);
-                                },
-                                child: Text('Parlimentary'),
-                              ),
-                              SizedBox(
-                                height: 40,
-                              ),
-                              ElevatedButton(
-                                  onPressed: () async {
-                                    temp.submit('presidential', temp.routines);
-                                    Future.delayed(const Duration(seconds: 3),
-                                        () {
-                                      setState(() {
-                                        temp.routines.clear();
-                                      });
-                                    });
-                                    Navigator.pop(context);
-                                  },
-                                  child: Text('Presidential')),
-                            ],
-                          ),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              child: const Text('Cancel'),
-                            ),
-                          ],
-                        );
-                      },
-                    );
+                    chooseDialog(
+                        context,
+                        () => createCollation(temp, context, 'parlimentary'),
+                        () => createCollation(temp, context, 'presidental'));
                   } else {
                     showDialog(
                         context: context,
@@ -104,39 +59,8 @@ class _AddCandidateState extends State<AddCandidate> {
                 break;
               case "Show":
                 {
-                  showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: const Text('Choose an Option'),
-                        content: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            ElevatedButton(
-                              onPressed: () {},
-                              child: Text('Parlimentary'),
-                            ),
-                            SizedBox(
-                              height: 40,
-                            ),
-                            ElevatedButton(
-                                onPressed: () {
-                                  Navigator.popAndPushNamed(context, '/show');
-                                },
-                                child: Text('Presidential')),
-                          ],
-                        ),
-                        actions: [
-                          TextButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text('Cancel'),
-                          ),
-                        ],
-                      );
-                    },
-                  );
+                  chooseDialog(context, () {},
+                      () => Navigator.popAndPushNamed(context, '/show'));
                 }
             }
           }, itemBuilder: (buildContext) {
@@ -164,28 +88,25 @@ class _AddCandidateState extends State<AddCandidate> {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
               ),
             )
-          : RefreshIndicator(
-              onRefresh: () async {},
-              child: ListView.builder(
-                itemCount: temp.routines.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text(temp.routines[index]['name']),
-                    subtitle: SizedBox(
-                        height: 20,
-                        child: Text(temp.routines[index]['voteCount'])),
-                    trailing: IconButton(
-                      icon: const Icon(
-                        Icons.delete,
-                        color: Colors.red,
-                      ),
-                      onPressed: () {
-                        temp.removeCandidate(index);
-                      },
+          : ListView.builder(
+              itemCount: temp.routines.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(temp.routines[index]['name']),
+                  subtitle: SizedBox(
+                      height: 20,
+                      child: Text(temp.routines[index]['voteCount'])),
+                  trailing: IconButton(
+                    icon: const Icon(
+                      Icons.delete,
+                      color: Colors.red,
                     ),
-                  );
-                },
-              ),
+                    onPressed: () {
+                      temp.removeCandidate(index);
+                    },
+                  ),
+                );
+              },
             ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
@@ -216,18 +137,21 @@ class _AddCandidateState extends State<AddCandidate> {
                 actions: [
                   TextButton(
                     onPressed: () {
-                      temp.addCandidate({
-                        'name': nameController.text,
-                        'voteCount': voteController.text
-                      });
-                      /*data.add({
+                      if (nameController.text.isNotEmpty &&
+                          voteController.text.isNotEmpty) {
+                        temp.addCandidate({
+                          'name': nameController.text,
+                          'voteCount': voteController.text
+                        });
+                        /*data.add({
                         'name': nameController.text,
                         'vote': voteController.text
                       });*/
-                      print(temp.routines);
-                      voteController.clear();
-                      nameController.clear();
-                      Navigator.pop(context);
+                        print(temp.routines);
+                        voteController.clear();
+                        nameController.clear();
+                        Navigator.pop(context);
+                      }
                     },
                     child: const Text('Add'),
                   ),
@@ -245,6 +169,50 @@ class _AddCandidateState extends State<AddCandidate> {
           );
         },
       ),
+    );
+  }
+
+  void createCollation(Temporary temp, BuildContext context, String category) {
+    temp.submit(category, temp.routines);
+    Future.delayed(const Duration(seconds: 3), () {
+      setState(() {
+        temp.routines.clear();
+      });
+    });
+    Navigator.pop(context);
+  }
+
+  Future<dynamic> chooseDialog(BuildContext context, Function() onParlimentary,
+      Function() onPresidential) {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text('Choose an Option'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ElevatedButton(
+                onPressed: onParlimentary,
+                child: Text('Parlimentary'),
+              ),
+              SizedBox(
+                height: 40,
+              ),
+              ElevatedButton(
+                  onPressed: () => onPresidential, child: Text('Presidential')),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Cancel'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
