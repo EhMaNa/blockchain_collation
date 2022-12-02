@@ -5,6 +5,7 @@ import 'package:collation_app/custom/global.dart';
 
 // My custom functions
 
+//function to get collation
 dynamic getCollation(String category, String add) async {
   try {
     var response = await Dio().get(
@@ -42,6 +43,7 @@ dynamic getCollation(String category, String add) async {
   }
 }
 
+// function for creation and validation of users
 User validateUser(String area, String pass) {
   List<User> users = [
     User(1, 'Legon A', 'awesomeA', 'pOfficer'),
@@ -57,4 +59,39 @@ User validateUser(String area, String pass) {
     }
   }
   return controller;
+}
+
+// function for dialogg boxes
+Future<dynamic> chooseDialog(BuildContext context, Function() onParlimentary,
+    Function() onPresidential) {
+  return showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text('Choose an Option'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ElevatedButton(
+              onPressed: onParlimentary,
+              child: Text('Parlimentary'),
+            ),
+            SizedBox(
+              height: 40,
+            ),
+            ElevatedButton(
+                onPressed: onPresidential, child: Text('Presidential')),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Cancel'),
+          ),
+        ],
+      );
+    },
+  );
 }
