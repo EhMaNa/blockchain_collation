@@ -3,6 +3,7 @@ class User {
   String area;
   String password;
   String level;
+
   User(
     this.id,
     this.area,
