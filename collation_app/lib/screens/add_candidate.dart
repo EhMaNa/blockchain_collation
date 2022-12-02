@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
 import 'package:collation_app/models/temp.dart';
-import 'package:collation_app/show_collation.dart';
+import 'package:collation_app/custom/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -36,7 +36,7 @@ class _AddCandidateState extends State<AddCandidate> {
             switch (value) {
               case "Out":
                 {
-                  Navigator.pop(context);
+                  Navigator.popAndPushNamed(context, '/login');
                 }
                 break;
               case "Create":
@@ -45,7 +45,7 @@ class _AddCandidateState extends State<AddCandidate> {
                     chooseDialog(
                         context,
                         () => createCollation(temp, context, 'parlimentary'),
-                        () => createCollation(temp, context, 'presidental'));
+                        () => createCollation(temp, context, 'presidential'));
                   } else {
                     showDialog(
                         context: context,
@@ -180,39 +180,5 @@ class _AddCandidateState extends State<AddCandidate> {
       });
     });
     Navigator.pop(context);
-  }
-
-  Future<dynamic> chooseDialog(BuildContext context, Function() onParlimentary,
-      Function() onPresidential) {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Choose an Option'),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ElevatedButton(
-                onPressed: onParlimentary,
-                child: Text('Parlimentary'),
-              ),
-              SizedBox(
-                height: 40,
-              ),
-              ElevatedButton(
-                  onPressed: () => onPresidential, child: Text('Presidential')),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: const Text('Cancel'),
-            ),
-          ],
-        );
-      },
-    );
   }
 }
