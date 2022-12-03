@@ -27,11 +27,10 @@ dynamic getCollation(String category, String add) async {
         ));
         wid.add(Text('Approved: $app'));
         wid.add(const Divider(thickness: 7.0));
-      } else if (add == 'no') {
-        wid.add(Text('Approved: ${list[i]['Approved']}'));
+      } else if (add == 'never') {
         wid.add(const Divider(thickness: 7.0));
-        colate = list[i]['candidates'];
       } else {
+        wid.add(Text('Approved: ${list[i]['Approved']}'));
         wid.add(const Divider(thickness: 7.0));
       }
     }
@@ -46,16 +45,31 @@ dynamic getCollation(String category, String add) async {
 // function for creation and validation of users
 User validateUser(String area, String pass) {
   List<User> users = [
-    User(1, 'Legon A', 'awesomeA', 'pOfficer'),
-    User(2, 'Legon B', 'awesomeM', 'pOfficer'),
-    User(3, 'Legon', 'awesome', 'cOfficer'),
-    User(4, 'Legon A', 'awesomeR', 'Party'),
-    User(5, 'Legon B', 'awesomeE', 'Party'),
+    User(1, 'Legon A', 'awesomeA', 'pOfficer', 0),
+    User(2, 'Legon B', 'awesomeM', 'pOfficer', 0),
+    User(3, 'Legon', 'awesome', 'cOfficer', 0),
+    User(4, 'Legon A', 'awesomeR', 'Party', 0),
+    User(5, 'Legon B', 'awesomeE', 'Party', 0),
   ];
-  User controller = User(1234, '', '', '');
-  for (int i = 0; i < users.length; i++) {
-    if (users[i].area == area && users[i].password == pass) {
-      controller = users[i];
+  User controller = User(1234, '', '', '', 0);
+  print('logs first call $logs');
+  if (logs.isNotEmpty) {
+    for (int i = 0; i < logs.length; i++) {
+      if (logs[i].area == area && logs[i].password == pass) {
+        controller = logs[i];
+      } else {
+        for (int i = 0; i < users.length; i++) {
+          if (users[i].area == area && users[i].password == pass) {
+            controller = users[i];
+          }
+        }
+      }
+    }
+  } else {
+    for (int i = 0; i < users.length; i++) {
+      if (users[i].area == area && users[i].password == pass) {
+        controller = users[i];
+      }
     }
   }
   return controller;
@@ -74,13 +88,13 @@ Future<dynamic> chooseDialog(BuildContext context, Function() onParlimentary,
           children: [
             ElevatedButton(
               onPressed: onParlimentary,
-              child: Text('Parlimentary'),
+              child: const Text('Parlimentary'),
             ),
-            SizedBox(
+            const SizedBox(
               height: 40,
             ),
             ElevatedButton(
-                onPressed: onPresidential, child: Text('Presidential')),
+                onPressed: onPresidential, child: const Text('Presidential')),
           ],
         ),
         actions: [
