@@ -80,41 +80,7 @@ class Authorize extends StatelessWidget {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10))),
                     onPressed: () {
-                      currentUser = validateUser(
-                          idController.text, passwordController.text);
-                      if (currentUser.id != 1234) {
-                        if (currentUser.level == 'pOfficer') {
-                          Navigator.popAndPushNamed(context, '/add');
-                        } else if (currentUser.level == 'Party') {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ShowParl(
-                                        category: 'parlimentary',
-                                        add: 'never',
-                                      )));
-                        } else if (currentUser.level == 'cOfficer') {
-                          Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ShowParl(
-                                        category: 'parlimentary',
-                                        add: 'yes',
-                                      )));
-                        }
-                      } else {
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return AlertDialog(
-                                title: Text('Authentication Failed'),
-                                content: Text(
-                                  'Incorrect Password Or Name ',
-                                  style: TextStyle(fontSize: 20),
-                                ),
-                              );
-                            });
-                      }
+                      login(idController, passwordController, context);
                     },
                     child: Container(
                         width: 200,
@@ -128,5 +94,44 @@ class Authorize extends StatelessWidget {
             ],
           ),
         ));
+  }
+
+  void login(TextEditingController idController,
+      TextEditingController passwordController, BuildContext context) {
+    currentUser =
+        validateUser(idController.text.trim(), passwordController.text);
+    if (currentUser.id != 1234) {
+      if (currentUser.level == 'pOfficer') {
+        Navigator.popAndPushNamed(context, '/add');
+      } else if (currentUser.level == 'Party') {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ShowParl(
+                      category: 'parlimentary',
+                      add: 'never',
+                    )));
+      } else if (currentUser.level == 'cOfficer') {
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ShowParl(
+                      category: 'parlimentary',
+                      add: 'yes',
+                    )));
+      }
+    } else {
+      showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: Text('Authentication Failed'),
+              content: Text(
+                'Incorrect Password Or Name ',
+                style: TextStyle(fontSize: 20),
+              ),
+            );
+          });
+    }
   }
 }
