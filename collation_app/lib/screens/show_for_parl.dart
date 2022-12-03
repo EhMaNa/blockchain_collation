@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:collation_app/custom/global.dart';
 import 'package:collation_app/custom/functions.dart';
 
-// Show For Presidential
+// Show For
 
 class ShowParl extends StatefulWidget {
   final String category;
@@ -25,35 +25,10 @@ class _ShowParlState extends State<ShowParl> {
         if (value != null) value.forEach((item) => displayList.add(item));
       });
     });
+    print(currentUser.usage);
   }
 
   List displayList = [];
-  /*dynamic getCollation() async {
-    try {
-      var response = await Dio()
-          .get('http://localhost:3000/collation/parlimentary?ID=$ID');
-      List list = response.data.toList();
-      List<Widget> wid = [];
-      for (int i = 0; i < list.length; i++) {
-        for (int j = 0; j < list[i]['candidates'].length; j++) {
-          //print(param[j]['candidates'].length);
-          //print(param[i]['candidates'][j]);
-          wid.add(ListTile(
-            title: Text(list[i]['candidates'][j]['name']),
-            trailing: Text(list[i]['candidates'][j]['voteCount']),
-          ));
-        }
-        wid.add(const Divider(thickness: 7.0));
-      }
-      //print(wid.runtimeType);
-      //print(wid);
-      return wid.toList();
-
-      //return list;
-    } catch (e) {
-      print('not workingg');
-    }
-  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +46,8 @@ class _ShowParlState extends State<ShowParl> {
                 break;
               case "Out":
                 {
-                  Navigator.pop(context);
+                  print(currentUser.usage);
+                  logout(context);
                 }
                 break;
             }
@@ -100,10 +76,9 @@ class _ShowParlState extends State<ShowParl> {
       floatingActionButton: widget.add == 'never'
           ? FloatingActionButton.extended(
               onPressed: () async {
-                if (count == '') {
-                  print(count);
+                if (currentUser.usage == 0) {
                   try {
-                    count = 'done';
+                    currentUser.usage += 1;
                     var response = await Dio().put(
                         'http://localhost:3000/collation/${widget.category}?ID=${currentUser.area}',
                         options: Options(headers: {
@@ -123,5 +98,14 @@ class _ShowParlState extends State<ShowParl> {
             )
           : null,
     );
+  }
+
+  void logout(BuildContext context) {
+    if (!logs.contains(currentUser)) {
+      logs.add(currentUser);
+      print(logs);
+    }
+
+    Navigator.popAndPushNamed(context, '/login');
   }
 }
