@@ -1,7 +1,8 @@
 import 'dart:io';
-import 'package:flutter/foundation.dart';
+//import 'package:flutter/foundation.dart';
 import 'package:dio/dio.dart';
 import 'package:collation_app/custom/global.dart';
+import 'package:flutter/material.dart';
 
 /*
 import 'dart:convert';*/
@@ -40,7 +41,32 @@ class Temporary extends ChangeNotifier {
      });*/
   }
 
-  /*Future<void> fetch(String url) async{
+  Future<void> fetchTally(String url) async {
+    try {
+      var response = await Dio().get(
+          'http://localhost:3000/collation/tally/$url?ID=${currentUser.area}');
+      List list = response.data.toList();
+      List<Widget> wid = [];
+      for (int i = 0; i < list.length; i++) {
+        for (int j = 0; j < list[i]['candidates'].length; j++) {
+          collect.add(ListTile(
+            title: Text(list[i]['candidates'][j]['name']),
+            trailing: Text(list[i]['candidates'][j]['voteCount']),
+          ));
+        }
+
+        collect.add(Text('Approved: ${list[i]['Approved']}'));
+        collect.add(const Divider(thickness: 7.0));
+      }
+      notifyListeners();
+
+      //return list;
+    } catch (e) {
+      print(e);
+      print('not workingg');
+    }
+
+    /*
    var response = await get(url);
    List data = jsonDecode(response.body);
    title.clear();
@@ -48,9 +74,6 @@ class Temporary extends ChangeNotifier {
    data.forEach((element) {
      title.add(element['Name']);
      collect.add(element['text']);
-   });
-
-
- }*/
-
+   });*/
+  }
 }
