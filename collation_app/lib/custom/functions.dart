@@ -45,31 +45,16 @@ dynamic getCollation(String category, String add) async {
 // function for creation and validation of users
 User validateUser(String area, String pass) {
   List<User> users = [
-    User(1, 'Legon A', 'awesomeA', 'pOfficer', 0),
-    User(2, 'Legon B', 'awesomeM', 'pOfficer', 0),
-    User(3, 'Legon', 'awesome', 'cOfficer', 0),
-    User(4, 'Legon A', 'awesomeR', 'Party', 0),
-    User(5, 'Legon B', 'awesomeE', 'Party', 0),
+    User(1, 'Legon A', 'awesomeA', 'pOfficer'),
+    User(2, 'Legon B', 'awesomeM', 'pOfficer'),
+    User(3, 'Legon', 'awesome', 'cOfficer'),
+    User(4, 'Legon A', 'awesomeR', 'Party'),
+    User(5, 'Legon B', 'awesomeE', 'Party'),
   ];
-  User controller = User(1234, '', '', '', 0);
-  print('logs first call $logs');
-  if (logs.isNotEmpty) {
-    for (int i = 0; i < logs.length; i++) {
-      if (logs[i].area == area && logs[i].password == pass) {
-        controller = logs[i];
-      } else {
-        for (int i = 0; i < users.length; i++) {
-          if (users[i].area == area && users[i].password == pass) {
-            controller = users[i];
-          }
-        }
-      }
-    }
-  } else {
-    for (int i = 0; i < users.length; i++) {
-      if (users[i].area == area && users[i].password == pass) {
-        controller = users[i];
-      }
+  User controller = User(1234, '', '', '');
+  for (int i = 0; i < users.length; i++) {
+    if (users[i].area == area && users[i].password == pass) {
+      controller = users[i];
     }
   }
   return controller;
