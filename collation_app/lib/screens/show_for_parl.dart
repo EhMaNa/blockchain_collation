@@ -1,11 +1,12 @@
 // ignore_for_file: prefer_const_constructors, avoid_print, use_key_in_widget_constructors
 import 'dart:io';
+import 'package:collation_app/screens/tally.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:collation_app/custom/global.dart';
 import 'package:collation_app/custom/functions.dart';
 
-// Show For
+// Show For Parlimentary
 
 class ShowParl extends StatefulWidget {
   final String category;
@@ -25,7 +26,6 @@ class _ShowParlState extends State<ShowParl> {
         if (value != null) value.forEach((item) => displayList.add(item));
       });
     });
-    print(currentUser.usage);
   }
 
   List displayList = [];
@@ -38,30 +38,67 @@ class _ShowParlState extends State<ShowParl> {
         title: const Text('Parlimentary'),
         actions: [
           PopupMenuButton(onSelected: (value) async {
-            switch (value) {
-              case "Pres":
-                {
-                  //Navigator.push(context, MaterialPageRoute(builder: (context) => NewGroup()));
-                }
-                break;
-              case "Out":
-                {
-                  print(currentUser.usage);
-                  logout(context);
-                }
-                break;
+            if (widget.add == "yes") {
+              switch (value) {
+                case "Pres":
+                  {
+                    //Navigator.push(context, MaterialPageRoute(builder: (context) => NewGroup()));
+                  }
+                  break;
+                case "Tally":
+                  {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => Tally()));
+                  }
+                  break;
+                case "Out":
+                  {
+                    Navigator.popAndPushNamed(context, '/login');
+                  }
+                  break;
+              }
+            } else {
+              switch (value) {
+                case "Pres":
+                  {
+                    //Navigator.push(context, MaterialPageRoute(builder: (context) => NewGroup()));
+                  }
+                  break;
+                case "Out":
+                  {
+                    Navigator.popAndPushNamed(context, '/login');
+                  }
+                  break;
+              }
             }
           }, itemBuilder: (buildContext) {
-            return [
-              PopupMenuItem(
-                value: 'Pres',
-                child: Text('View Presidential'),
-              ),
-              PopupMenuItem(
-                value: 'Out',
-                child: Text('Log Out'),
-              ),
-            ];
+            if (widget.add == "yes") {
+              return [
+                PopupMenuItem(
+                  value: 'Pres',
+                  child: Text('View Presidential'),
+                ),
+                PopupMenuItem(
+                  value: 'Tally',
+                  child: Text('Tally'),
+                ),
+                PopupMenuItem(
+                  value: 'Out',
+                  child: Text('Log Out'),
+                ),
+              ];
+            } else {
+              return [
+                PopupMenuItem(
+                  value: 'Pres',
+                  child: Text('View Presidential'),
+                ),
+                PopupMenuItem(
+                  value: 'Out',
+                  child: Text('Log Out'),
+                ),
+              ];
+            }
           })
         ],
       ),
@@ -76,19 +113,16 @@ class _ShowParlState extends State<ShowParl> {
       floatingActionButton: widget.add == 'never'
           ? FloatingActionButton.extended(
               onPressed: () async {
-                if (currentUser.usage == 0) {
-                  try {
-                    currentUser.usage += 1;
-                    var response = await Dio().put(
-                        'http://localhost:3000/collation/${widget.category}?ID=${currentUser.area}',
-                        options: Options(headers: {
-                          HttpHeaders.contentTypeHeader:
-                              "application/x-www-form-urlencoded"
-                        }));
-                  } catch (e) {
-                    //print(e);
-                    print('didnt send');
-                  }
+                try {
+                  var response = await Dio().put(
+                      'http://localhost:3000/collation/${widget.category}?ID=${currentUser.area}',
+                      options: Options(headers: {
+                        HttpHeaders.contentTypeHeader:
+                            "application/x-www-form-urlencoded"
+                      }));
+                } catch (e) {
+                  //print(e);
+                  print('didnt send');
                 }
               },
               label: Text(
@@ -98,14 +132,5 @@ class _ShowParlState extends State<ShowParl> {
             )
           : null,
     );
-  }
-
-  void logout(BuildContext context) {
-    if (!logs.contains(currentUser)) {
-      logs.add(currentUser);
-      print(logs);
-    }
-
-    Navigator.popAndPushNamed(context, '/login');
   }
 }
