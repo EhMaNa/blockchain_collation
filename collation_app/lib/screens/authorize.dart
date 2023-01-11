@@ -30,7 +30,7 @@ class Authorize extends StatelessWidget {
                   textCapitalization: TextCapitalization.words,
                   maxLength: 20,
                   decoration: InputDecoration(
-                    hintText: 'Name of Constituency',
+                    hintText: 'ID',
                     enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(15),
                         borderSide: BorderSide(color: Colors.black)),
