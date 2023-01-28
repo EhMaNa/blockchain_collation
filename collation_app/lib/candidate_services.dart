@@ -52,20 +52,29 @@ class CandidateServices extends ChangeNotifier {
     _creds = EthPrivateKey.fromHex(_privatekey);
   }
 
-  late DeployedContract _deployedContract;
-  late ContractFunction _addCandidate;
+  /* late DeployedContract _deployedContract;
+  late ContractFunction _addCollation;
   late ContractFunction _candidates;
-  late ContractFunction _candidatesCount;
+  late ContractFunction _candidatesCount;*/
+
+  late DeployedContract _deployedContract;
+  late ContractFunction _addCollation;
 
   Future<void> getDeployedContract() async {
     _deployedContract = DeployedContract(_abiCode, _contractAddress);
-    _addCandidate = _deployedContract.function('addCandidate');
-    _candidates = _deployedContract.function('candidates');
-    _candidatesCount = _deployedContract.function('candidatesCount');
-    await fetchCandidate();
+    _addCollation = _deployedContract.function('addCollation');
+    //_candidates = _deployedContract.function('candidates');
+    //_candidatesCount = _deployedContract.function('candidatesCount');
+    //await fetchCandidate();
   }
+  /*
+  Future<void> getDeployedContract() async {
+    _deployedContract = DeployedContract(_abiCode, _contractAddress);
+    _addCollation = _deployedContract.function('addCollation');
+    ///await fetchCandidate();
+  }*/
 
-  Future<void> fetchCandidate() async {
+  /* Future<void> fetchCandidate() async {
     List totalTaskList = await _web3cient.call(
       contract: _deployedContract,
       function: _candidatesCount,
@@ -91,18 +100,31 @@ class CandidateServices extends ChangeNotifier {
     isLoading = false;
 
     notifyListeners();
-  }
+  }*/
 
-  Future<void> addCandidate(String name, String voteCount) async {
+  Future<void> addCollation(String area, dynamic candidates) async {
     await _web3cient.sendTransaction(
       _creds,
       Transaction.callContract(
         contract: _deployedContract,
-        function: _addCandidate,
+        function: _addCollation,
+        parameters: [area, candidates],
+      ),
+    );
+    isLoading = true;
+    //fetchCandidate();
+  }
+
+  /*Future<void> addCollation(String name, String voteCount) async {
+    await _web3cient.sendTransaction(
+      _creds,
+      Transaction.callContract(
+        contract: _deployedContract,
+        function: _addCollation,
         parameters: [name, voteCount],
       ),
     );
     isLoading = true;
-    fetchCandidate();
-  }
+    //fetchCandidate();
+  }*/
 }
