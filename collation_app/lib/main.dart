@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Collation dApp',
       theme: ThemeData(
-        useMaterial3: true,
+        primarySwatch: Colors.lightBlue,
       ),
       initialRoute: "/login",
       routes: {
