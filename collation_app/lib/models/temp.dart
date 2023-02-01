@@ -54,7 +54,7 @@ class Temporary extends ChangeNotifier {
             trailing: Text(list[i]['candidates'][j]['voteCount']),
           ));
         }
-
+        colate = list[i]['candidates'];
         collect.add(Text('Approved: ${list[i]['Approved']}'));
         collect.add(const Divider(thickness: 7.0));
       }
