@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:web3dart/web3dart.dart';
 import 'package:flutter/material.dart';
-import 'package:collation_app/candidates.dart';
+import 'package:collation_app/models/candidates.dart';
 import 'package:http/http.dart' as http;
 import 'package:web_socket_channel/io.dart';
 
