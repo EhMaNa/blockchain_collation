@@ -1,23 +1,29 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.4.22 <0.9.0;
+pragma experimental ABIEncoderV2;
 
 contract CollationContract {
-    uint256 public count = 0;
-
     struct Collation {
         uint256 id;
+        string area;
+        string[] candidates;
     }
 
-    struct Candidate {
+    /*struct Candidate {
         uint256 id;
         string name;
         string voteCount;
-    }
-    mapping(uint256 => Candidate) public candidates;
+    }*/
+    /*mapping(uint256 => Candidate) public candidates;
+    uint256 public candidatesCount;*/
+    mapping(uint256 => Collation) public candidatess;
     uint256 public candidatesCount;
-    event addedCandidate(uint256 id, string name, string voteCount);
+    Collation[] public collations;
+    event addedCollation(uint256 id, string area, string[] candidates);
 
-    function addCandidate(string memory _name, string memory _voteCount)
+    //event addedCollation(uint256 id, string name, string voteCount);
+
+    /*function addCollation(string memory _name, string memory _voteCount)
         public
     {
         candidatesCount++;
@@ -26,6 +32,27 @@ contract CollationContract {
             _name,
             _voteCount
         );
-        emit addedCandidate(candidatesCount, _name, _voteCount);
+        emit addedCollation(candidatesCount, _name, _voteCount);
+    }*/
+    function addCollation(string memory _area, string[] memory candidates)
+        public
+    {
+        candidatesCount++;
+        collations.push(Collation(candidatesCount, _area, candidates));
+
+        emit addedCollation(candidatesCount, _area, candidates);
+    }
+
+    function getCollation(uint256 i)
+        public
+        view
+        returns (
+            uint256 id,
+            string memory,
+            string[] memory
+        )
+    {
+        return (collations[i].id, collations[i].area, collations[i].candidates);
     }
 }
+//CollationContract.deployed().then(function(i){app=i;})
