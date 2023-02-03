@@ -9,12 +9,6 @@ contract CollationContract {
         string[] candidates;
     }
 
-    /*struct Candidate {
-        uint256 id;
-        string name;
-        string voteCount;
-    }*/
-    /*mapping(uint256 => Candidate) public candidates;
     uint256 public candidatesCount;*/
     mapping(uint256 => Collation) public candidatess;
     uint256 public candidatesCount;
