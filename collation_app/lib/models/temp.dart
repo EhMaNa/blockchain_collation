@@ -30,15 +30,7 @@ class Temporary extends ChangeNotifier {
           HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
         }));
     statCode = 200;
-    /*await post(url, body: json.encode({'Name': one,"text": list}), headers: {'Content-type': 'application/json'});
-     var response = await get(url);
-     List data = jsonDecode(response.body);
-     title.clear();
-     collect.clear();
-     data.forEach((element) {
-       title.add(element['Name']);
-       collect.add(element['text']);
-     });*/
+    
   }
 
   Future<void> fetchTally(String url) async {
