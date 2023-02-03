@@ -86,18 +86,7 @@ class CandidateServices extends ChangeNotifier {
       var temp = await _web3cient.call(
           contract: _deployedContract,
           function: _candidates,
-          params: [BigInt.from(i)]);
-      if (temp[1] != "") {
-        candidates.add(
-          Candidate(
-            id: (temp[0] as BigInt).toInt(),
-            name: temp[1],
-            voteCount: temp[2],
-          ),
-        );
-      }
-    }
-    isLoading = false;
+          params: [BigInt.from(i)])
 
     notifyListeners();
   }*/
