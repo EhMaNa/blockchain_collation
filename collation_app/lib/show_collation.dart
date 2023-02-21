@@ -17,12 +17,12 @@ class _ShowState extends State<Show> {
     super.initState();
     getCollation('presidential', 'no').then((value) {
       setState(() {
-        if (value != null) value.forEach((item) => use.add(item));
+        if (value != null) value.forEach((item) => items.add(item));
       });
     });
   }
 
-  List use = [];
+  List items = [];
 
   @override
   Widget build(BuildContext context) {
@@ -31,10 +31,10 @@ class _ShowState extends State<Show> {
         title: const Text('Presidential'),
       ),
       body: ListView.builder(
-        itemCount: use.length,
+        itemCount: items.length,
         itemBuilder: (context, index) {
           return Container(
-            child: use[index],
+            child: items[index],
           );
         },
       ),
