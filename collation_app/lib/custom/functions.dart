@@ -6,35 +6,35 @@ import 'package:collation_app/custom/global.dart';
 // My custom functions
 
 //function to get collation
-dynamic getCollation(String category, String add) async {
+getCollation(String category, String add) async {
   try {
     var response = await Dio().get(
         'http://localhost:3000/collation/$category?ID=${currentUser.area}&add=$add');
     List list = response.data.toList();
-    List<Widget> wid = [];
+    List<Widget> widgets = [];
     for (int i = 0; i < list.length; i++) {
       for (int j = 0; j < list[i]['candidates'].length; j++) {
-        wid.add(ListTile(
+        widgets.add(ListTile(
           title: Text(list[i]['candidates'][j]['name']),
           trailing: Text(list[i]['candidates'][j]['voteCount']),
         ));
       }
       if (add == 'yes') {
         var app = list[i]['Approved'];
-        wid.add(Text(list[i]['ID']));
-        wid.add(const SizedBox(
+        widgets.add(Text(list[i]['ID']));
+        widgets.add(const SizedBox(
           height: 12,
         ));
-        wid.add(Text('Approved: $app'));
-        wid.add(const Divider(thickness: 7.0));
+        widgets.add(Text('Approved: $app'));
+        widgets.add(const Divider(thickness: 7.0));
       } else if (add == 'never') {
-        wid.add(const Divider(thickness: 7.0));
+        widgets.add(const Divider(thickness: 7.0));
       } else {
-        wid.add(Text('Approved: ${list[i]['Approved']}'));
-        wid.add(const Divider(thickness: 7.0));
+        widgets.add(Text('Approved: ${list[i]['Approved']}'));
+        widgets.add(const Divider(thickness: 7.0));
       }
     }
-    return wid.toList();
+    return widgets.toList();
 
     //return list;
   } catch (e) {
