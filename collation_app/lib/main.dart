@@ -16,7 +16,8 @@ void main() {
     providers: [
       ChangeNotifierProvider<CandidateServices>(
           create: (context) => CandidateServices()),
-      ChangeNotifierProvider<Temporary>(create: (context) => Temporary()),
+      ChangeNotifierProvider<CandidateProvider>(
+          create: (context) => CandidateProvider()),
     ],
     child: const MyApp(),
   ));
