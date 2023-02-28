@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 /*
 import 'dart:convert';*/
 
-class Temporary extends ChangeNotifier {
+class CandidateProvider extends ChangeNotifier {
   List routines = [];
   List title = [];
   List collect = [];
@@ -30,7 +30,6 @@ class Temporary extends ChangeNotifier {
           HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
         }));
     statCode = 200;
-    
   }
 
   Future<void> fetchTally(String url) async {
@@ -57,15 +56,5 @@ class Temporary extends ChangeNotifier {
       print(e);
       print('not workingg');
     }
-
-    /*
-   var response = await get(url);
-   List data = jsonDecode(response.body);
-   title.clear();
-   collect.clear();
-   data.forEach((element) {
-     title.add(element['Name']);
-     collect.add(element['text']);
-   });*/
   }
 }
