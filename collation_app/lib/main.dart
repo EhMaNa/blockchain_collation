@@ -8,10 +8,6 @@ import 'package:provider/provider.dart';
 
 void main() {
   runApp(
-      /*ChangeNotifierProvider(
-      create: (context) => CandidateServices(),
-      child: const MyApp(),
-    ),*/
       MultiProvider(
     providers: [
       ChangeNotifierProvider<CandidateServices>(
