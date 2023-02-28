@@ -15,7 +15,7 @@ class Tally extends StatefulWidget {
 class _TallyState extends State<Tally> {
   @override
   Widget build(BuildContext context) {
-    var temp = context.watch<Temporary>();
+    var temp = context.watch<CandidateProvider>();
     var candidateService = context.watch<CandidateServices>();
     List<String> strs = colate.map((e) => e.toString()).toList();
 
@@ -73,7 +73,7 @@ class _TallyState extends State<Tally> {
     );
   }
 
-  void fetchTally(Temporary temp, BuildContext context) {
+  void fetchTally(CandidateProvider temp, BuildContext context) {
     temp.collect.clear();
     temp.fetchTally('presidential');
     print(temp.collect);
