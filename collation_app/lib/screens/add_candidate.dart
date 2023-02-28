@@ -25,7 +25,7 @@ class _AddCandidateState extends State<AddCandidate> {
   @override
   Widget build(BuildContext context) {
     // var candidateService = context.watch<CandidateServices>();
-    var temp = context.watch<Temporary>();
+    var temp = context.watch<CandidateProvider>();
 
     return Scaffold(
       appBar: AppBar(
@@ -172,7 +172,8 @@ class _AddCandidateState extends State<AddCandidate> {
     );
   }
 
-  void createCollation(Temporary temp, BuildContext context, String category) {
+  void createCollation(
+      CandidateProvider temp, BuildContext context, String category) {
     temp.submit(category, temp.routines);
     Future.delayed(const Duration(seconds: 3), () {
       setState(() {
