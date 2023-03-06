@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:collation_app/models/temp.dart';
+import 'package:collation_app/models/candidate_stateManager.dart';
 import 'package:collation_app/candidate_services.dart';
 import 'package:collation_app/custom/global.dart';
 import 'package:collation_app/custom/functions.dart';
