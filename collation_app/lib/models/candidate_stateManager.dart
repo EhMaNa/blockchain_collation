@@ -52,8 +52,8 @@ class CandidateProvider extends ChangeNotifier {
 
       //return list;
     } catch (e) {
-      print(e);
-      print('not workingg');
+      debugPrint(e.toString());
+      debugPrint('not workingg');
     }
   }
 }
