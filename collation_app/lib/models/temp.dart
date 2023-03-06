@@ -1,5 +1,4 @@
 import 'dart:io';
-//import 'package:flutter/foundation.dart';
 import 'package:dio/dio.dart';
 import 'package:collation_app/custom/global.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +23,7 @@ class CandidateProvider extends ChangeNotifier {
   }
 
   Future<void> submit(String category, List list) async {
-    var response = await Dio().post('http://localhost:3000/collation/$category',
+    await Dio().post('http://localhost:3000/collation/$category',
         data: {'candidates': list, 'ID': currentUser.area},
         options: Options(headers: {
           HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
