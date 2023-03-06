@@ -1,5 +1,5 @@
 // ignore_for_file: prefer_const_constructors, avoid_print
-import 'package:collation_app/models/temp.dart';
+import 'package:collation_app/models/candidate_stateManager.dart';
 import 'package:collation_app/custom/functions.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
