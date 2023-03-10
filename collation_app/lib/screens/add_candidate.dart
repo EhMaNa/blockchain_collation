@@ -41,7 +41,7 @@ class _AddCandidateState extends State<AddCandidate> {
                 break;
               case "Create":
                 {
-                  if (temp.routines.isNotEmpty) {
+                  if (temp.candidatesData.isNotEmpty) {
                     chooseDialog(
                         context,
                         () => createCollation(temp, context, 'parlimentary'),
@@ -81,7 +81,7 @@ class _AddCandidateState extends State<AddCandidate> {
           })
         ],
       ),
-      body: temp.routines.isEmpty
+      body: temp.candidatesData.isEmpty
           ? const Center(
               child: Text(
                 'Tap on the Plus Sign To Begin',
@@ -89,13 +89,13 @@ class _AddCandidateState extends State<AddCandidate> {
               ),
             )
           : ListView.builder(
-              itemCount: temp.routines.length,
+              itemCount: temp.candidatesData.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Text(temp.routines[index]['name']),
+                  title: Text(temp.candidatesData[index]['name']),
                   subtitle: SizedBox(
                       height: 20,
-                      child: Text(temp.routines[index]['voteCount'])),
+                      child: Text(temp.candidatesData[index]['voteCount'])),
                   trailing: IconButton(
                     icon: const Icon(
                       Icons.delete,
@@ -147,7 +147,7 @@ class _AddCandidateState extends State<AddCandidate> {
                         'name': nameController.text,
                         'vote': voteController.text
                       });*/
-                        print(temp.routines);
+                        print(temp.candidatesData);
                         voteController.clear();
                         nameController.clear();
                         Navigator.pop(context);
@@ -174,10 +174,10 @@ class _AddCandidateState extends State<AddCandidate> {
 
   void createCollation(
       CandidateProvider temp, BuildContext context, String category) {
-    temp.submit(category, temp.routines);
+    temp.submit(category, temp.candidatesData);
     Future.delayed(const Duration(seconds: 3), () {
       setState(() {
-        temp.routines.clear();
+        temp.candidatesData.clear();
       });
     });
     Navigator.pop(context);
