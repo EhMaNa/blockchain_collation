@@ -7,18 +7,18 @@ import 'package:flutter/material.dart';
 import 'dart:convert';*/
 
 class CandidateProvider extends ChangeNotifier {
-  List routines = [];
+  List candidatesData = [];
   List title = [];
   List collect = [];
   int statCode = 200;
 
   void addCandidate(Map candidate) {
-    routines.add(candidate);
+    candidatesData.add(candidate);
     notifyListeners();
   }
 
   void removeCandidate(int index) {
-    routines.removeAt(index);
+    candidatesData.removeAt(index);
     notifyListeners();
   }
 
