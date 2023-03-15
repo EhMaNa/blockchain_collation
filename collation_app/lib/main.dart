@@ -1,8 +1,5 @@
 import 'package:collation_app/custom/route_generator.dart';
 import 'package:collation_app/models/candidate_stateManager.dart';
-import 'package:collation_app/screens/add_candidate.dart';
-import 'package:collation_app/screens/authorize.dart';
-import 'package:collation_app/show_collation.dart';
 import 'package:flutter/material.dart';
 import 'package:collation_app/candidate_services.dart';
 import 'package:provider/provider.dart';
