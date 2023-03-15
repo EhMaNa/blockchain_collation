@@ -1,4 +1,5 @@
-import 'package:collation_app/models/temp.dart';
+import 'package:collation_app/custom/route_generator.dart';
+import 'package:collation_app/models/candidate_stateManager.dart';
 import 'package:collation_app/screens/add_candidate.dart';
 import 'package:collation_app/screens/authorize.dart';
 import 'package:collation_app/show_collation.dart';
@@ -7,8 +8,7 @@ import 'package:collation_app/candidate_services.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(
-      MultiProvider(
+  runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider<CandidateServices>(
           create: (context) => CandidateServices()),
@@ -29,12 +29,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.lightBlue,
       ),
-      initialRoute: "/login",
-      routes: {
-        "/login": (context) => const Authorize(),
-        "/add": (context) => const AddCandidate(),
-        "/show": (context) => const Show(),
-      },
+      onGenerateRoute: (routeSettings) => generateRoute(routeSettings),
     );
   }
 }
