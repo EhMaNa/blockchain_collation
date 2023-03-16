@@ -102,7 +102,7 @@ class Authorize extends StatelessWidget {
         validateUser(idController.text.trim(), passwordController.text);
     if (currentUser.id != 1234) {
       if (currentUser.level == 'pOfficer') {
-        Navigator.popAndPushNamed(context, '/add');
+        Navigator.popAndPushNamed(context, '/addCandidate');
       } else if (currentUser.level == 'Party') {
         Navigator.pushReplacement(
             context,
