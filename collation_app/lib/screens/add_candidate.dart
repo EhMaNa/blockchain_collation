@@ -59,8 +59,14 @@ class _AddCandidateState extends State<AddCandidate> {
                 break;
               case "Show":
                 {
-                  chooseDialog(context, () {},
-                      () => Navigator.popAndPushNamed(context, '/show'));
+                  chooseDialog(
+                      context,
+                      () => Navigator.popAndPushNamed(
+                          context, '/showPresidentialSimple',
+                          arguments: 'parlimentary'),
+                      () => Navigator.popAndPushNamed(
+                          context, '/showPresidentialSimple',
+                          arguments: 'presidential'));
                 }
             }
           }, itemBuilder: (buildContext) {
