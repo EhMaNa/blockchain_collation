@@ -38,7 +38,7 @@ getCollation(String category, String add) async {
 
     //return list;
   } catch (e) {
-    print('not workingg');
+    debugPrint('not workingg');
   }
 }
 
@@ -73,7 +73,7 @@ Future<dynamic> chooseDialog(BuildContext context, Function() onParlimentary,
           children: [
             ElevatedButton(
               onPressed: onParlimentary,
-              child: const Text('Parlimentary'),
+              child: const Text('Parliamentary'),
             ),
             const SizedBox(
               height: 40,
