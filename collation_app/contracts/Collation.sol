@@ -19,13 +19,7 @@ contract CollationContract {
 
     /*function addCollation(string memory _name, string memory _voteCount)
         public
-    {
-        candidatesCount++;
-        candidates[candidatesCount] = Candidate(
-            candidatesCount,
-            _name,
-            _voteCount
-        );
+  
         emit addedCollation(candidatesCount, _name, _voteCount);
     }*/
     function addCollation(string memory _area, string[] memory candidates)
