@@ -8,16 +8,16 @@ import 'package:collation_app/custom/functions.dart';
 
 // Show For Parlimentary
 
-class ShowParl extends StatefulWidget {
+class ShowToParty extends StatefulWidget {
   final String category;
   final String add;
-  const ShowParl({required this.category, required this.add});
+  const ShowToParty({required this.category, required this.add});
 
   @override
-  State<ShowParl> createState() => _ShowParlState();
+  State<ShowToParty> createState() => _ShowToPartyState();
 }
 
-class _ShowParlState extends State<ShowParl> {
+class _ShowToPartyState extends State<ShowToParty> {
   @override
   void initState() {
     super.initState();
@@ -35,14 +35,15 @@ class _ShowParlState extends State<ShowParl> {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: const Text('Parlimentary'),
+        title: Text(widget.category),
         actions: [
           PopupMenuButton(onSelected: (value) async {
             if (widget.add == "yes") {
               switch (value) {
                 case "Pres":
                   {
-                    //Navigator.push(context, MaterialPageRoute(builder: (context) => NewGroup()));
+                    Navigator.pushNamed(context, '/showToParty',
+                        arguments: 'presidential');
                   }
                   break;
                 case "Tally":
