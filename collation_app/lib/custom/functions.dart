@@ -60,7 +60,7 @@ User validateUser(String area, String pass) {
   return controller;
 }
 
-// function for dialogg boxes
+// function for dialog boxes
 Future<dynamic> chooseDialog(BuildContext context, Function() onParlimentary,
     Function() onPresidential) {
   return showDialog(
@@ -93,4 +93,10 @@ Future<dynamic> chooseDialog(BuildContext context, Function() onParlimentary,
       );
     },
   );
+}
+
+extension StringExtension on String {
+  String capitalizeFirst() {
+    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+  }
 }
