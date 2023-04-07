@@ -34,77 +34,80 @@ class _ShowToPartyState extends State<ShowToParty> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        automaticallyImplyLeading: false,
+        automaticallyImplyLeading:
+            widget.category == 'presidential' ? true : false,
         title: Text(widget.category),
-        actions: [
-          PopupMenuButton(onSelected: (value) async {
-            if (widget.add == "yes") {
-              switch (value) {
-                case "Pres":
-                  {}
-                  break;
-                case "Tally":
-                  {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => Tally()));
+        actions: widget.category == 'presidential'
+            ? []
+            : [
+                PopupMenuButton(onSelected: (value) async {
+                  if (widget.add == "yes") {
+                    switch (value) {
+                      case "Pres":
+                        {}
+                        break;
+                      case "Tally":
+                        {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) => Tally()));
+                        }
+                        break;
+                      case "Out":
+                        {
+                          Navigator.popAndPushNamed(context, '/login');
+                        }
+                        break;
+                    }
+                  } else {
+                    switch (value) {
+                      case "Pres":
+                        {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ShowToParty(
+                                        category: 'presidential',
+                                        add: 'never',
+                                      )));
+                        }
+                        break;
+                      case "Out":
+                        {
+                          Navigator.popAndPushNamed(context, '/login');
+                        }
+                        break;
+                    }
                   }
-                  break;
-                case "Out":
-                  {
-                    Navigator.popAndPushNamed(context, '/login');
+                }, itemBuilder: (buildContext) {
+                  if (widget.add == "yes") {
+                    return [
+                      PopupMenuItem(
+                        value: 'Pres',
+                        child: Text('View Presidential'),
+                      ),
+                      PopupMenuItem(
+                        value: 'Tally',
+                        child: Text('Tally'),
+                      ),
+                      PopupMenuItem(
+                        value: 'Out',
+                        child: Text('Log Out'),
+                      ),
+                    ];
+                  } else {
+                    return [
+                      PopupMenuItem(
+                        value: 'Pres',
+                        child: Text('View Presidential'),
+                      ),
+                      PopupMenuItem(
+                        value: 'Out',
+                        child: Text('Log Out'),
+                      ),
+                    ];
                   }
-                  break;
-              }
-            } else {
-              switch (value) {
-                case "Pres":
-                  {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ShowToParty(
-                                  category: 'presidential',
-                                  add: 'never',
-                                )));
-                  }
-                  break;
-                case "Out":
-                  {
-                    Navigator.popAndPushNamed(context, '/login');
-                  }
-                  break;
-              }
-            }
-          }, itemBuilder: (buildContext) {
-            if (widget.add == "yes") {
-              return [
-                PopupMenuItem(
-                  value: 'Pres',
-                  child: Text('View Presidential'),
-                ),
-                PopupMenuItem(
-                  value: 'Tally',
-                  child: Text('Tally'),
-                ),
-                PopupMenuItem(
-                  value: 'Out',
-                  child: Text('Log Out'),
-                ),
-              ];
-            } else {
-              return [
-                PopupMenuItem(
-                  value: 'Pres',
-                  child: Text('View Presidential'),
-                ),
-                PopupMenuItem(
-                  value: 'Out',
-                  child: Text('Log Out'),
-                ),
-              ];
-            }
-          })
-        ],
+                })
+              ],
       ),
       body: ListView.builder(
         itemCount: displayList.length,
