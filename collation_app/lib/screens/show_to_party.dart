@@ -41,10 +41,7 @@ class _ShowToPartyState extends State<ShowToParty> {
             if (widget.add == "yes") {
               switch (value) {
                 case "Pres":
-                  {
-                    Navigator.pushNamed(context, '/showToParty',
-                        arguments: 'presidential');
-                  }
+                  {}
                   break;
                 case "Tally":
                   {
@@ -62,7 +59,13 @@ class _ShowToPartyState extends State<ShowToParty> {
               switch (value) {
                 case "Pres":
                   {
-                    //Navigator.push(context, MaterialPageRoute(builder: (context) => NewGroup()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ShowToParty(
+                                  category: 'presidential',
+                                  add: 'never',
+                                )));
                   }
                   break;
                 case "Out":
@@ -106,9 +109,7 @@ class _ShowToPartyState extends State<ShowToParty> {
       body: ListView.builder(
         itemCount: displayList.length,
         itemBuilder: (context, index) {
-          return Container(
-            child: displayList[index],
-          );
+          return Container(child: displayList[index]);
         },
       ),
       floatingActionButton: widget.add == 'never'
@@ -122,7 +123,6 @@ class _ShowToPartyState extends State<ShowToParty> {
                             "application/x-www-form-urlencoded"
                       }));
                 } catch (e) {
-                  //print(e);
                   print('didnt send');
                 }
               },
