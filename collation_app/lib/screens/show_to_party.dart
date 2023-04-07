@@ -36,7 +36,7 @@ class _ShowToPartyState extends State<ShowToParty> {
       appBar: AppBar(
         automaticallyImplyLeading:
             widget.category == 'presidential' ? true : false,
-        title: Text(widget.category),
+        title: Text(widget.category.capitalizeFirst()),
         actions: widget.category == 'presidential'
             ? []
             : [
