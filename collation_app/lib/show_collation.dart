@@ -28,7 +28,7 @@ class _ShowState extends State<Show> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Presidential'),
+        title: Text(widget.category.capitalizeFirst()),
       ),
       body: ListView.builder(
         itemCount: items.length,
@@ -39,5 +39,11 @@ class _ShowState extends State<Show> {
         },
       ),
     );
+  }
+}
+
+extension StringExtension on String {
+  String capitalizeFirst() {
+    return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
   }
 }
